@@ -1,5 +1,5 @@
-# Ola Chat
-Ola Chat多平台项目，含：桌面端和移动端。
+# webTemplate
+web的mobile, pc端模版框架，含：桌面端和移动端。
 
 ## 构建 Start
 
