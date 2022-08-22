@@ -1,0 +1,16 @@
+export { default as FacebookSvg } from './Facebook';
+export { default as GoogleSvg } from './Google';
+export { default as LineSvg } from './Line';
+export { default as TwitterSvg } from './Twitter';
+export { default as RightArrowSvg } from './RightArrow';
+export { default as LeftArrowSvg } from './LeftArrow';
+export { default as MenuSvg } from './Menu';
+export { default as CloseSvg } from './Close';
+export { default as DiamondSvg } from './Diamond';
+export { default as TriangleSvg } from './Triangle';
+export { default as HotSvg } from './Hot';
+export { default as ProcessSvg } from './Process';
+export { default as SuccessSvg } from './Success';
+export { default as FailedSvg } from './Failed';
+export { default as ZhangdanSvg } from './Zhangdan';
+export { default as LogoutSvg } from './Logout';

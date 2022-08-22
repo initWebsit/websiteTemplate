@@ -1,0 +1,174 @@
+/* 全局配置 */
+* {
+    -webkit-overflow-scrolling: touch;
+    /* 允许独立滚动区域，解决IOS上的非body元素滚动条滚动时卡顿 */
+    -webkit-tap-highlight-color: transparent;
+    /* 覆盖IOS上用户点击连接时的默认高亮颜色 */
+    outline: none;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    -webkit-font-smoothing: antialiased;
+    /* 平滑字体 */
+    -moz-osx-font-smoothing: grayscale;
+    /* 平滑字体 */
+    -ms-touch-action: manipulation;
+    /* 允许触摸驱动的平移和拖拽缩放 */
+    touch-action: manipulation;
+    /* 允许触摸驱动的平移和拖拽缩放 */
+    -webkit-text-size-adjust: 100%;
+    /* 关闭IOS横屏时，自动调整字体大小的功能 */
+    font-family: Montserrat, Lato, LatoBold, "Segoe UI", "Lucida Grande", "Microsoft YaHei", sans-serif;
+    font-size: 14px;
+    scroll-behavior: smooth;
+    /* 平滑滚动 */
+}
+
+ul {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+/* ul样式重置 */
+li {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* li样式重置 */
+img {
+    border: 0;
+}
+
+input {
+    line-height: normal;
+}
+
+img,
+a:focus,
+a:hover,
+a:active {
+    outline: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+/* 重新定义上标和下标的表现 */
+sup {
+    top: -0.5em;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+button {
+    border: none;
+}
+
+:root {
+    --color-primary: #1677ff;
+    --color-purple: #5B3B93;
+    --color-success: #00b578;
+    --color-warning: #ff8f1f;
+    --color-danger: #ff3141;
+    --color-white: #ffffff;
+    --color-weak: #999999;
+    --color-light: #cccccc;
+    --border-color: rgba(49, 49, 49, 0.08);
+    --border-color-6: rgba(232, 232, 232, 0.6);
+    --font-size-main: 15px;
+    --font-color-main: #313131;
+    --font-color-white: #ffffff;
+    --font-color-black: #313131;
+    --font-color-weak: #747474;
+    --font-color-light: #cccccc;
+    --font-color-primary: var(--color-primary);
+    --font-color-danger: var(--color-danger);
+    --font-family: Montserrat, Lato, LatoBold, -apple-system, blinkmacsystemfont, 'Helvetica Neue', helvetica,
+        segoe ui, arial, roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB',
+        'Microsoft Yahei', sans-serif;
+    --one-px: 1px;
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+
+/* 美化滚动条 */
+/* ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: transparent;
+} */
+
+/*定义滑块 内阴影+圆角*/
+/* ::-webkit-scrollbar-thumb {
+    background-color: #333;
+} */
+
+
+@media screen and (min-width: 768px) {
+    /* ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: -webkit-gradient(linear, left top, left bottom, from(#ff8a00), to(#e52e71));
+        background: linear-gradient(180deg, #ff8a00, #e52e71);
+        border-radius: 10px;
+        box-shadow: inset 2px 2px 2px hsla(0, 0%, 100%, .25), inset -2px -2px 2px rgba(0, 0, 0, .25);
+    } */
+}
+
+@media screen and (max-width: 767px) {
+    /* ::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    } */
+    
+    /* ::-webkit-scrollbar-thumb {
+        background: -webkit-gradient(linear, left top, left bottom, from(#ff8a00), to(#e52e71));
+        background: linear-gradient(180deg, #ff8a00, #e52e71);
+        border-radius: 5px;
+        box-shadow: inset 2px 2px 2px hsla(0, 0%, 100%, .25), inset -2px -2px 2px rgba(0, 0, 0, .25);
+    } */
+}
+
+
+
+/* ::-webkit-scrollbar-track {
+    background: linear-gradient(90deg, #201c29, #201c29 1px, #100e17 0, #100e17);
+} */
+
+@font-face {
+    font-family: Montserrat;
+    src: url('./fonts/Montserrat-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: Lato;
+    src: url('./fonts/Lato-Regular-2.ttf');
+}
+
+@font-face {
+    font-family: LatoBold;
+    src: url('./fonts/Lato-Bold-7.ttf');
+}

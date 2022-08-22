@@ -1,0 +1,63 @@
+export default {
+    "text1": "Host Data",
+    "text2": "Detailed Data",
+    "text3": "Agency Data",
+    "text4": "Agency Live Data",
+    "text5": "Host Live Data",
+
+    "text6": "Agency Infomation",
+    "text7": "Agency Name",
+    "text8": "Agency Owner ID",
+    "text9": "Agency Owner Nickname",
+    "text10": "Country",
+    "text11": "Data Time Zone",
+    "text12": "Host Signing Date",
+    "text13": "Live Data",
+    "text14": "Check Detailed Data",
+    "text15": "Recieved gifts value-Yesterday",
+    "text16": "NO. of Supporters - Yesterday",
+    "text17": "Recieved gifts value in Room-Yesterday",
+    "text18": "Charm Points Received in Private Chat - Yesterday",
+    "text19": "Valid Live Hours - Yesterday",
+    "text20": "Valid Live Day or Not - Yesterday",
+
+    "text21": "Host Live Data",
+    "text22": "Agency Live Data",
+
+    "text23": "Switch to month",
+    "text24": "Switch to (Date)",
+    "text25": "Select Cycle",
+    "text26": "Edit Numeric Field",
+    "text27": "Time (date/month)",
+    "text28": "NO. of Supporters",
+    "text29": "Charm Points",
+    "text30": "Charm Points Received in Room",
+    "text31": "Charm Points Received in Private Chat",
+    "text32": "Live Hours",
+    "text33": "Valid Live Days",
+	"text51": "Valid On Mic Users in Room",
+	"text52": "Game Hours",
+
+    "text34": "NO. of Hosts",
+    "text35": "Agency Signing Date",
+
+    "text36": "NO. of Gifted Hosts",
+    "text37": "NO. of New Hosts",
+
+    "text38": "Host ID",
+    "text39": "Host Nickname",
+    "text40": "Valid Live Hours",
+
+    "text41": "Loading Next Page",
+    "text42": "No More Data",
+    "text43": "Edit Numeric Field",
+    "text44": "Save",
+    "text45": "Date/Cycle Should be in the first column, and max 5 Numeric Fields",
+
+    "text46": "Copy",
+    "text47": "Valid Live Hours: Being on mic continuously for more than 20 minutes will be counted in Valid Live Hours.",
+    "text48": "Valid Live Day: Valid Live Hours exceed 2 hours will be counted as 1 Valid Live Day.",
+    "text49": "Yes",
+    "text50": "No",
+
+}

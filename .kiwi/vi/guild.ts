@@ -1,0 +1,63 @@
+export default {
+    "text1": "Dữ liệu máy chủ",
+    "text2": "Detailed Data",
+    "text3": "Dữ liệu đại lý",
+    "text4": "Dữ liệu trực tiếp của đại lý",
+    "text5": "Lưu trữ dữ liệu trực tiếp",
+
+    "text6": "Thông tin đại lý",
+    "text7": "Tên cơ quan",
+    "text8": "ID chủ sở hữu đại lý",
+    "text9": "Biệt hiệu của chủ sở hữu đại lý",
+    "text10": "Quốc gia",
+    "text11": "Múi giờ dữ liệu",
+    "text12": "Ngày ký máy chủ",
+    "text13": "Dữ liệu trực tiếp",
+    "text14": "Kiểm tra dữ liệu chi tiết",
+    "text15": "Điểm quyến rũ - Hôm qua",
+    "text16": "KHÔNG. của những người ủng hộ - Hôm qua",
+    "text17": "Hợp lệ trên người dùng micrô trong phòng-Hôm qua",
+    "text18": "Điểm quyến rũ nhận được khi trò chuyện riêng tư - Hôm qua",
+    "text19": "Giờ Trực tiếp-Hôm qua",
+    "text20": "Ngày trực tiếp hợp lệ hay không - hôm qua",
+
+    "text21": "Lưu trữ dữ liệu trực tiếp",
+    "text22": "Dữ liệu trực tiếp của đại lý",
+
+    "text23": "Chuyển sang tháng",
+    "text24": "Chuyển sang (Ngày)",
+    "text25": "Chọn chu kỳ",
+    "text26": "Chỉnh sửa trường số",
+    "text27": "Thời gian (ngày / tháng)",
+    "text28": "KHÔNG. của những người ủng hộ",
+    "text29": "Điểm quyến rũ",
+    "text30": "Điểm quyến rũ nhận được trong phòng",
+    "text31": "Điểm quyến rũ nhận được khi trò chuyện riêng tư",
+    "text32": "Giờ trực tiếp",
+    "text33": "Ngày trực tiếp hợp lệ",
+	"text51": "Người dùng có micrô hợp lệ trong phòng",
+	"text52": "Giờ trò chơi",
+
+    "text34": "KHÔNG. máy chủ",
+    "text35": "Ngày ký đại lý",
+
+    "text36": "KHÔNG. Người dẫn chương trình có năng khiếu",
+    "text37": "KHÔNG. máy chủ mới",
+
+    "text38": "ID máy chủ",
+    "text39": "Biệt hiệu máy chủ",
+    "text40": "Giờ trực tiếp hợp lệ",
+
+    "text41": "Đang tải trang tiếp theo",
+    "text42": "Không có thêm dữ liệu",
+    "text43": "Chỉnh sửa trường số",
+    "text44": "Tiết kiệm",
+    "text45": "Ngày / Chu kỳ phải ở cột đầu tiên và tối đa 5 Trường số",
+
+    "text46": "Sao chép",
+    "text47": "Giờ phát trực tiếp hợp lệ: Bật micrô liên tục trong hơn 20 phút sẽ được tính vào Giờ phát trực tiếp hợp lệ.",
+    "text48": "Ngày Trực tiếp Hợp lệ: Giờ Trực tiếp hợp lệ vượt quá 2 giờ sẽ được tính là 1 Ngày Trực tiếp Hợp lệ.",
+    "text49": "Đúng",
+    "text50": "Không",
+
+}

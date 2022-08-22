@@ -1,0 +1,16 @@
+{
+    "kiwiDir": "./.kiwi",
+    "configFile": "./.kiwi/kiwi-config.json",
+    "srcLang": "zh-CN",
+    "distLangs": [
+        "ar",
+        "en-US",
+        "id",
+        "ko",
+        "ms",
+        "th",
+        "tr",
+        "vi",
+        "zh-TW"
+    ]
+}

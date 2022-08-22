@@ -1,0 +1,105 @@
+@header-m-height: 64px;
+
+.layout-m-header {
+	z-index: @z-index-m-header;
+	position: absolute;
+	top: 0;
+	left: 0;
+	flex-shrink: 0;
+	width: 100%;
+	height: 64px;
+	padding: 0 16px;
+	color: #fff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: border-box;
+
+	.lmh-logo {
+		height: 28px;
+	}
+	.lmh-close {
+		padding: 2px;
+	}
+	.lmh-left{
+		height: 100%;
+		position: absolute;
+		left: 16px;
+		top: 0;
+		display: inline-flex;
+		align-items: center;
+	}
+	.lmh-center {
+		font-size: 18px;
+		font-weight: 500;
+		flex-grow: 1;
+		text-align: center;
+	}
+	.lmh-right {
+		height: 100%;
+		position: absolute;
+		right: 14px;
+		top: 0;
+		display: inline-flex;
+		align-items: center;
+	}
+
+	.lmh-diamond {
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		height: 27px;
+		overflow-y: hidden;
+		margin-right: 8px;
+
+		&-left {
+			box-sizing: border-box;
+			display: flex;
+			height: 27px;
+			justify-content: center;
+			align-items: center;
+			background-color: #724bcc;
+			padding: 0px 6px;
+			border-radius: 4px 0px 0px 4px;
+		}
+
+		&-right {
+			box-sizing: border-box;
+			display: flex;
+			height: 27px;
+			justify-content: center;
+			align-items: center;
+			background-color: white;
+			padding: 0px 5px;
+			border-radius: 0px 4px 4px 0px;
+		}
+
+		&-img {
+			width: 18px;
+			height: 18px;
+		}
+
+		&-text {
+			box-sizing: border-box;
+			line-height: 16px;
+			font-size: 16px;
+			font-weight: 800;
+			color: #040303;
+		}
+	}
+}
+
+.layout-m-header-blue {
+	background-color: #7954e9;
+	color: rgba(255, 255, 255, 1);
+}
+
+.layout-m-header-black {
+	background-color: #34303E;
+	color: #fff;
+}
+
+.layout-m-header-pad {
+	height: @header-m-height;
+	width: 100%;
+}

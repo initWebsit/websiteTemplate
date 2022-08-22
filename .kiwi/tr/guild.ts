@@ -1,0 +1,63 @@
+export default {
+    "text1": "Ana Bilgisayar Verileri",
+    "text2": "Detailed Data",
+    "text3": "Ajans Verileri",
+    "text4": "Ajans Canlı Verileri",
+    "text5": "Canlı Verileri Barındırın",
+
+    "text6": "Acente Bilgileri",
+    "text7": "Ajans İsmi",
+    "text8": "Ajans Sahibi Kimliği",
+    "text9": "Ajans Sahibinin Takma Adı",
+    "text10": "Ülke",
+    "text11": "Veri Saat Dilimi",
+    "text12": "Ev Sahibi İmza Tarihi",
+    "text13": "Canlı veri",
+    "text14": "Ayrıntılı Verileri Kontrol Edin",
+    "text15": "Charm Puanları - Dün",
+    "text16": "NUMARA. Destekleyenler - Dün",
+    "text17": "Odadaki Mikrofon Kullanıcılarında Geçerli - Dün",
+    "text18": "Özel Sohbette Alınan Charm Puanları - Dün",
+    "text19": "Canlı Saatler-Dün",
+    "text20": "Geçerli Canlı Gün veya Değil - Dün",
+
+    "text21": "Canlı Verileri Barındırın",
+    "text22": "Ajans Canlı Verileri",
+
+    "text23": "aya geç",
+    "text24": "(Tarih) seçeneğine geç",
+    "text25": "Döngü Seç",
+    "text26": "Sayısal Alanı Düzenle",
+    "text27": "Saat (tarih/ay)",
+    "text28": "NUMARA. Destekleyenlerin",
+    "text29": "Cazibe Puanları",
+    "text30": "Odada Alınan Charm Puanları",
+    "text31": "Özel Sohbette Alınan Charm Puanları",
+    "text32": "Canlı Saatler",
+    "text33": "Geçerli Canlı Günler",
+	"text51": "Odadaki Mikrofon Kullanıcılarında Geçerli",
+	"text52": "Oyun Saatleri",
+
+    "text34": "NUMARA. Ana Bilgisayarların",
+    "text35": "Ajans İmza Tarihi",
+
+    "text36": "NUMARA. Üstün Yetenekli Ev Sahipleri",
+    "text37": "NUMARA. Yeni Ana Bilgisayarların",
+
+    "text38": "Ana Bilgisayar Kimliği",
+    "text39": "Ana Bilgisayar Takma Adı",
+    "text40": "Geçerli Canlı Saatler",
+
+    "text41": "Sonraki Sayfa Yükleniyor",
+    "text42": "Artık Veri Yok",
+    "text43": "Sayısal Alanı Düzenle",
+    "text44": "Kaydetmek",
+    "text45": "Tarih/Döngü ilk sütunda olmalı ve en fazla 5 Sayısal Alan",
+
+    "text46": "kopyala",
+    "text47": "Geçerli Canlı Saatler: Sürekli olarak 20 dakikadan fazla mikrofonda olmak Geçerli Canlı Saatler olarak sayılacaktır.",
+    "text48": "Geçerli Canlı Gün: 2 saati aşan Geçerli Canlı Saatler, 1 Geçerli Canlı Gün olarak sayılacaktır.",
+    "text49": "Evet",
+    "text50": "Numara",
+
+}

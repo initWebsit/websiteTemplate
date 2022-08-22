@@ -1,0 +1,107 @@
+@import '@/library/ui/components/popover/animation.less';
+
+.layout-m-menu {
+	background-color: #34303E;
+	color: #fff;
+	height: calc(100% - 64px);
+	width: 100%;
+	position: absolute;
+	top: 64px;
+	left: 0;
+	z-index: @z-index-menu;
+
+	&.leaving {
+		animation: 200ms amSlideDownOut ease-out forwards;
+		// animation-name: amSlideDownOut;
+		// animation-duration: 2000ms;
+	}
+
+	&.entering {
+		animation-name: amSlideDownIn;
+		animation-duration: 200ms;
+	}
+}
+
+.lmm-user {
+	padding: 20px 16px 12px;
+	display: flex;
+	align-items: center;
+	color: #fff;
+
+	&-photo {
+		width: 56px;
+		height: 56px;
+		border-radius: 28px;
+		flex-shrink: 0;
+	}
+	&-info {
+		margin-left: 12px;
+		flex-grow: 1;
+	}
+	&-name {
+		font-weight: 500;
+		font-size: 16px;
+	}
+	&-id {
+		margin-top: 6px;
+		font-size: 12px;
+	}
+	&-exit {
+		flex-shrink: 0;
+		font-size: 14px;
+	}
+}
+
+.lmm-nav {
+	padding: 0 16px;
+
+	&-item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 17px 0;
+
+		& > i {
+			font-style: normal;
+			font-size: 16px;
+			line-height: 22px;
+			font-weight: 500;
+		}
+		& > span {
+			display: inline-flex;
+			align-items: center;
+			& > i {
+				font-style: normal;
+				color: rgba(0, 0, 0, 0.6);
+				font-size: 16px;
+			}
+			& > img {
+				width: 12px;
+				height: 12px;
+				margin: 6px 0 6px 6px;
+			}
+		}
+	}
+}
+
+.lmm-lang {
+	margin-top: 64px;
+	margin-bottom: 32px;
+	padding: 0 16px;
+	box-sizing: border-box;
+	text-align: right;
+
+	> span {
+		font-size: 14px;
+		color: #fff;
+		display: inline-flex;
+		align-items: center;
+		cursor: pointer;
+	}
+	&-language {
+		margin-right: 8px;
+	}
+	&-triangle{
+		margin-left: 4px;
+	}
+}

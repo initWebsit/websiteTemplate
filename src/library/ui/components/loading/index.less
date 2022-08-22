@@ -1,0 +1,101 @@
+@class-prefix-loading: ~'b-loading';
+
+.@{class-prefix-loading} {
+    display: inline-block;
+    // align-items: center;
+    // justify-content: center;
+    // padding: 10px 6px;
+    --color: var(--color-weak);
+    --dot-size: 10px;
+
+    position: relative;
+    width: 60px;
+    height: 60px;
+    // background-color: aqua;
+    // background-color: #fff;
+
+    &-dot {
+        transform-origin: 30px 5px;
+        width: var(--dot-size);
+        height: var(--dot-size);
+        // margin: 0 var(--dot-size);
+        background-color: #815AD9;
+        border: 1px solid #AB8BF6;
+        box-sizing: border-box;
+        border-radius: 10px;
+        position: absolute;
+        top: 25px;
+        /*!rtl:ignore*/
+        left: 0;
+        overflow: hidden;
+        animation: gl-spinner 0.88s linear infinite;
+
+        &:nth-child(1) {
+            transform: rotate(0deg);
+            animation-delay: -0.77s;
+        }
+
+        &:nth-child(2) {
+            transform: rotate(45deg);
+            animation-delay: -0.66s;
+        }
+
+        &:nth-child(3) {
+            transform: rotate(90deg);
+            animation-delay: -0.55s;
+        }
+
+        &:nth-child(4) {
+            transform: rotate(135deg);
+            animation-delay: -0.44s;
+        }
+
+        &:nth-child(5) {
+            transform: rotate(180deg);
+            animation-delay: -0.33s;
+        }
+
+        &:nth-child(6) {
+            transform: rotate(225deg);
+            animation-delay: -0.22s;
+        }
+
+        &:nth-child(7) {
+            transform: rotate(270deg);
+            animation-delay: -0.11s;
+        }
+
+        &:nth-child(8) {
+            transform: rotate(315deg);
+            animation-delay: 0s;
+        }
+
+
+
+    }
+
+    &-mini {
+        --dot-size: 2px;
+        padding: 5px 3px;
+    }
+
+    &-small {
+        --dot-size: 3px;
+        padding: 6px 4px;
+    }
+
+    &-large {
+        --dot-size: 5px;
+        padding: 14px 10px;
+    }
+}
+
+@keyframes gl-spinner {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.6;
+    }
+}

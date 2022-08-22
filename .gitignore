@@ -1,0 +1,34 @@
+# mac .DS_Store
+.DS_Store
+
+# Webstorm
+.idea
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+
+# Dependency directories
+node_modules
+jspm_packages
+.happypack
+yarn.lock
+package-lock.json
+.vscode/*
+# dll
+
+# Optional npm cache directory
+.npm
+
+
+# 忽略编译文件
+dist/*
+backup/*
+build/*
+# !dist/official-prod
+!.gitkeep
+
+
+# src/library/lodash

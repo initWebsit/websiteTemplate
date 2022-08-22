@@ -1,0 +1,121 @@
+.layout-d-footer {
+	background-color: #34303E;
+	font-size: 24px;
+	position: relative;
+	width: 100%;
+
+	.footerBox {
+		width: 1280px;
+		margin: 0 auto;
+		padding: 48px 20px;
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-start;
+		&>div:nth-of-type(1) {
+			flex-shrink: 0;
+			width: 122px;
+			margin-right: 160px;
+			&>img {
+				height: 27px;
+				display: block;
+				margin-bottom: 36px;
+			}
+			&>p {
+				font-family: 'LatoBold';
+				font-weight: 700;
+				font-size: 14px;
+				line-height: 116%;
+				color: #FFFFFF;
+			}
+			.contactSvgBox {
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				.contactSvg {
+					width: 24px;
+					cursor: pointer;
+				}
+			}
+			.changeLanguage {
+				margin-top: 40px;
+				cursor: pointer;
+				&-menu {
+					display: inline-flex;
+					justify-content: flex-start;
+					align-items: center;
+					border: 1px solid #FFFFFF;
+					border-radius: 100px;
+					font-family: 'LatoBold';
+					font-weight: 600;
+					font-size: 12px;
+					line-height: 130%;
+					letter-spacing: 0.03em;
+					color: #FFFFFF;
+					padding: 5px 10px;
+					&-svg {
+						margin-left: 20px;
+					}
+				}
+			}
+		}
+		&>div:nth-of-type(2) {
+			flex-grow: 1;
+			.topBox {
+				display: flex;
+				justify-content: flex-start;
+				align-items: flex-start;
+				.linkBox {
+					width: 125px;
+					margin-right: 70px;
+					&>a {
+						font-family: 'Lato';
+						font-weight: 300;
+						font-size: 14px;
+						line-height: 116%;
+						color: #FFFFFF;
+						cursor: pointer;
+						display: block;
+						margin-bottom: 8px;
+						text-decoration: none;
+						&:hover {
+							text-decoration: underline;
+						}
+					}
+					&>a:nth-of-type(1) {
+						font-family: 'LatoBold';
+						font-weight: 700;
+						font-size: 14px;
+						line-height: 116%;
+						color: #FFFFFF;
+						cursor: auto;
+						margin-bottom: 23px;
+						&:hover {
+							text-decoration: none;
+						}
+					}
+				}
+				.linkBox:nth-last-of-type(1) {
+					margin-right: 0;
+				}
+			}
+			.companyDes {
+				font-family: 'Lato';
+				font-weight: 300;
+				font-size: 14px;
+				line-height: 116%;
+				color: rgba(255, 255, 255, 0.5);
+				margin: 50px 0 0 0;
+				text-align: right;
+			}
+		}
+	}
+}
+html[dir='rtl'] .layout-desktop-footer {
+	.ldf-copyright::after {
+		content: '';
+	}
+	.ldf-copyright::before {
+		content: '.';
+	}
+}

@@ -1,0 +1,63 @@
+export default {
+    "text1": "Data Hos",
+    "text2": "Detailed Data",
+    "text3": "Data Agensi",
+    "text4": "Data Langsung Agensi",
+    "text5": "Hos Data Langsung",
+
+    "text6": "Maklumat Agensi",
+    "text7": "Nama Agensi",
+    "text8": "ID Pemilik Agensi",
+    "text9": "Nama Panggilan Pemilik Agensi",
+    "text10": "Negara",
+    "text11": "Zon Masa Data",
+    "text12": "Tarikh Menandatangani Hos",
+    "text13": "Data Langsung",
+    "text14": "Semak Data Terperinci",
+    "text15": "Mata Pesona - Semalam",
+    "text16": "TIDAK. daripada Penyokong - Semalam",
+    "text17": "Sah Pada Pengguna Mikrofon di Bilik-Semalam",
+    "text18": "Mata Pesona Diterima dalam Sembang Peribadi - Semalam",
+    "text19": "Live Hours-Semalam",
+    "text20": "Hari Langsung Sah atau Tidak - Semalam",
+
+    "text21": "Hos Data Langsung",
+    "text22": "Data Langsung Agensi",
+
+    "text23": "Tukar kepada bulan",
+    "text24": "Tukar kepada (Tarikh)",
+    "text25": "Pilih Kitaran",
+    "text26": "Edit Medan Berangka",
+    "text27": "Masa (tarikh/bulan)",
+    "text28": "TIDAK. daripada Penyokong",
+    "text29": "Mata Pesona",
+    "text30": "Mata Pesona Diterima dalam Bilik",
+    "text31": "Mata Pesona Diterima dalam Sembang Peribadi",
+    "text32": "Waktu Langsung",
+    "text33": "Hari Langsung yang Sah",
+	"text51": "Sah Pada Pengguna Mikrofon dalam Bilik",
+	"text52": "Waktu Permainan",
+
+    "text34": "TIDAK. daripada Hos",
+    "text35": "Tarikh Menandatangani Agensi",
+
+    "text36": "TIDAK. daripada Hos Berbakat",
+    "text37": "TIDAK. daripada Hos Baharu",
+
+    "text38": "ID hos",
+    "text39": "Nama Panggilan Hos",
+    "text40": "Waktu Langsung yang Sah",
+
+    "text41": "Memuatkan Halaman Seterusnya",
+    "text42": "Tiada Data Lagi",
+    "text43": "Edit Medan Berangka",
+    "text44": "Jimat",
+    "text45": "Tarikh/Kitaran Hendaklah berada dalam lajur pertama, dan maksimum 5 Medan Angka",
+
+    "text46": "Salinan",
+    "text47": "Waktu Langsung Sah: Berada pada mikrofon secara berterusan selama lebih daripada 20 minit akan dikira dalam Waktu Langsung Sah.",
+    "text48": "Hari Langsung Sah: Waktu Langsung Sah melebihi 2 jam akan dikira sebagai 1 Hari Langsung Sah.",
+    "text49": "ya",
+    "text50": "Tidak",
+
+}
