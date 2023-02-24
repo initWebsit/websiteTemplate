@@ -1,7 +1,7 @@
 /*
  + ------------------------------------------------------------------
  |  通用的webpack配置文件
- + ------------------------------------------------------------------ 
+ + ------------------------------------------------------------------
  */
 const webpack = require("webpack");
 const CopyPlugin = require("copy-webpack-plugin");
@@ -153,6 +153,7 @@ module.exports = {
             "@": path.resolve(__dirname, "../src"),
             "@browser": path.resolve(__dirname, "../src/projects/browser"),
             "@client": path.resolve(__dirname, "../src/projects/client"),
+            "@react-spring": path.resolve(__dirname, "../node_modules/@react-spring"),
             "react": "preact/compat",
             "react-dom/test-utils": "preact/test-utils",
             "react-dom": "preact/compat",
