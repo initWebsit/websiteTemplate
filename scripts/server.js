@@ -1,7 +1,7 @@
 /*
  + ------------------------------------------------------------------
- | 用于开发环境的服务启动 
- + ------------------------------------------------------------------ 
+ | 用于开发环境的服务启动
+ + ------------------------------------------------------------------
  */
 const path = require('path')
 const express = require('express')
@@ -11,7 +11,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware')
 const webpackConfig = require('./webpack.dev.js')
 const app = express()
 const setupProxy = require('../setupProxy')
-const PORT = 6120 // 服务启动端口号
+const PORT = 6140 // 服务启动端口号
 
 // 实例化webpack
 const compiler = webpack(webpackConfig)

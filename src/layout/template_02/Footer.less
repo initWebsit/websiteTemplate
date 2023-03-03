@@ -2,120 +2,56 @@
     box-sizing: border-box;
     width: 100%;
     font-size: 14px;
-    line-height: 1;
-    padding: 30px 16px;
-    background: #34303E;
-
-    .logoBox {
+    background: linear-gradient(90deg, #1f1f1f 0%, #1a1a1a 100%);
+    padding: 25px 15px;
+    &-box {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        margin-bottom: 23px;
-        &>img {
-            height: 27px;
+        align-items: flex-start;
+        & > div:nth-of-type(1) {
+            margin-right: 10px;
+            & > p:nth-of-type(1) {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                margin: 0 0 12px 0;
+                & > span:nth-of-type(1), & > span:nth-of-type(3) {
+                    font-size: 12px;
+                    font-family: Poppins-SemiBold;
+                    font-weight: 600;
+                    color: #FFFFFF;
+                    margin-right: 20px;
+                }
+                & > span:nth-of-type(3) {
+                    margin: 0 0 0 20px;
+                }
+                & > span:nth-of-type(2) {
+                    width: 2px;
+                    height: 12px;
+                    background: #fff;
+                }
+            }
+            & > p:nth-of-type(2) {
+                font-size: 10px;
+                font-family: Poppins-Regular;
+                font-weight: 400;
+                color: #FFFFFF;
+                line-height: 14px;
+                margin: 0;
+            }
         }
-        .changeLanguage-menu {
-            cursor: pointer;
-            display: inline-flex;
+        & > div:nth-of-type(2) {
+            display: flex;
             justify-content: flex-start;
             align-items: center;
-            border: 1px solid #FFFFFF;
-            border-radius: 100px;
-            font-family: 'LatoBold';
-            font-weight: 600;
-            font-size: 12px;
-            line-height: 130%;
-            letter-spacing: 0.03em;
-            color: #FFFFFF;
-            padding: 5px 10px;
-            &-svg {
-                margin-left: 10px;
+            img {
+                width: 26px;
+                display: block;
+                cursor: pointer;
+            }
+            .marginRight12 {
+                margin-right: 12px;
             }
         }
-    }
-    .footerTitle1 {
-        margin: 0 0 16px 0;
-        text-align: left;
-        font-family: 'Lato';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 14px;
-        line-height: 116%;
-        color: #FFFFFF;
-    }
-    .contactSvgBox {
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        margin-bottom: 24px;
-        .contactSvg {
-            width: 36px;
-            cursor: pointer;
-            margin-right: 35px;
-        }
-    }
-
-    .collapseBox {
-        .collapseList {
-            &>p:nth-of-type(1) {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-                padding: 14px 0;
-                margin: 0;
-                &>span {
-                    font-family: 'Montserrat';
-                    font-style: normal;
-                    font-weight: 700;
-                    font-size: 16px;
-                    line-height: 135%;
-                    letter-spacing: 0.01em;
-                    color: rgba(255, 255, 255, 0.5);
-                }
-                .collapseList-svg {
-                    transition: transform 0.5s;
-                }
-                .rotateSvg {
-                    transform: rotateZ(-180deg);
-                }
-            }
-            &>div:nth-of-type(1) {
-                transition: height 0.5s;
-                height: 0px;
-                overflow: hidden;
-                &>p {
-                    font-family: 'Lato';
-                    font-weight: 300;
-                    font-size: 14px;
-                    line-height: 116%;
-                    cursor: pointer;
-                    display: block;
-                    margin: 17px 0;
-                    color: rgba(255, 255, 255, 0.8);
-                }
-            }
-            .changeHeight1 {
-                height: 50px !important;
-            }
-            .changeHeight2 {
-                height: 100px !important;
-            }
-            .changeHeight3 {
-                height: 150px !important;
-            }
-        }
-    }
-
-    .companyDes {
-        font-family: 'Lato';
-        font-style: normal;
-        font-weight: 300;
-        font-size: 14px;
-        line-height: 116%;
-        color: rgba(255, 255, 255, 0.5);
-        text-align: left;
-        margin: 34px 0 0 0;
     }
 }

@@ -1,7 +1,7 @@
 /*
  + ------------------------------------------------------------------
  | 路由页 - 实际意义上的根组件，已挂载到redux上，可获取store中的内容
- + ------------------------------------------------------------------ 
+ + ------------------------------------------------------------------
  */
 import React from 'react'
 import { connect } from 'react-redux'
@@ -88,9 +88,9 @@ function RouterContainer(props) {
 			(o) => {
 				// debugger
 				if (location.pathname === '/') {
-					return '/about' === o.pageConfig.path
-				} else if (location.pathname === '/income') {
-					return '/client/income' === o.pageConfig.path
+					return '/home' === o.pageConfig.path
+				} else if (window.location.pathname === o.pageConfig.path + '/') {
+					return true
 				} else {
 					return location.pathname === o.pageConfig.path
 				}

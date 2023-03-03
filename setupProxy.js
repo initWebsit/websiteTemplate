@@ -36,7 +36,7 @@ module.exports = function (app) {
 		createProxyMiddleware(['/proxyHelp'], {
 			// target: 'https://help.partystar.live',
 			// target: 'http://ps-help.imee.com',
-			target: 'http://120.26.70.43/ps',
+			target: 'http://192.168.128.218:12040',
 			pathRewrite: {
 				'^/proxyHelp': '',
 			},

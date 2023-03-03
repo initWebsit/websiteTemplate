@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
-import Footer from './footer';
+import Footer from './Footer';
 import './Content.less';
 
 
@@ -12,10 +12,10 @@ function MobileContent(props) {
     }
 
     return (
-        <div className="layout-m-content" style={{ height: 'calc(100% - 64px)' }}>
+        <div className="layout-m-content" style={{ height: props.pageCfg.headerPadM === 1 ? 'calc(100% - 62px)' : '100%' }}>
             {props.children}
             {
-                props.pageCfg.footerStatusD === 1 && <Footer />
+                props.pageCfg.footerStatusM === 1 && <Footer />
             }
         </div>
     )

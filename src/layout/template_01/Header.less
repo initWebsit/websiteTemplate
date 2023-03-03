@@ -7,7 +7,7 @@
 	position: absolute;
 	top: 0;
 	width: 100%;
-	background-color: transparent;
+	background-color: rgba(0, 0, 0, 0.7);
 	color: #fff;
 	font-weight: 500;
 	font-size: 21px;
@@ -20,6 +20,9 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		.logoSvg {
+			cursor: pointer;
+		}
 	}
 
 	.ldh-left-logo {
@@ -34,35 +37,42 @@
 			line-height: 66px;
 			height: 66px;
 			position: relative;
-			margin-right: 54px;
+			margin-right: 100px;
 			cursor: pointer;
-			font-weight: 600;
-			font-size: 14px;
 			letter-spacing: 0.2px;
+			font-size: 19px;
+			font-family: Poppins-SemiBold;
+			font-weight: 600;
+			color: #FFFFFF;
+			opacity: 0.5;
 		}
 		a:last-of-type {
 			margin-right: 0;
 		}
-		&-active {
-			color: #FF7500;
+		.ldh-nav-active {
+			color: #FFFF00;
+			opacity: 1;
 			&:after {
-				//content: ' ';
-				//width: 14px;
-				//height: 3px;
-				//position: absolute;
-				//bottom: 0;
-				//border-radius: 3px;
-				//left: calc(50% - 7px);
+				content: ' ';
+				width: 26px;
+				height: 3px;
+				position: absolute;
+				bottom: 10px;
+				border-radius: 2px;
+				left: calc(50% - 13px);
+				background: #FFFF00;
 			}
 		}
 		&-active-black {
 			&:after {
-				background-color: #1f1c1c;
+				//background-color: #1f1c1c;
+				color: #FFFF00;
 			}
 		}
 		&-active-white {
 			&:after {
-				background-color: #fff;
+				//background-color: #fff;
+				color: #FFFF00;
 			}
 		}
 	}

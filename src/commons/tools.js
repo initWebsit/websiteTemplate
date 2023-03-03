@@ -1,7 +1,7 @@
 /*
  + ------------------------------------------------------------------
  | 封装了一些常用的工具函数
- + ------------------------------------------------------------------ 
+ + ------------------------------------------------------------------
  */
 
 export function removeURLParameter(url, parameter) {
@@ -97,4 +97,28 @@ export function deepClone(temp) {
 	} else {
 		return temp;
 	}
+}
+
+// 获取节点真实offsetTop方法
+export function getDistanceTop(obj) {
+	let top = 0;
+	while (obj) {
+		let absoluteTop = 0;
+		let json = {};
+		try {
+			json = {top: window.getComputedStyle(obj)?.top, transform: window.getComputedStyle(obj)?.transform};
+		} catch (err) {
+		}
+		if (json?.top !== 'auto' && json?.transform !== 'none') {
+			let tempTop = parseFloat(window.getComputedStyle(obj)?.top.split('px')[0]);
+			// matrix(1, 0, 0, 1, -600, -420)
+			let translateY = parseFloat(json?.transform?.split(')')[0]?.split('(')[1]?.split(', ')[5]);
+			absoluteTop = tempTop + translateY;
+		}
+		top += absoluteTop ? absoluteTop : obj.offsetTop;
+		obj = obj.offsetParent;
+	}
+	return {
+		top: top
+	};
 }

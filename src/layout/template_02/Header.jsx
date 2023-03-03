@@ -1,7 +1,7 @@
 /*
  + ------------------------------------------------------------------
  | 导航
- + ------------------------------------------------------------------ 
+ + ------------------------------------------------------------------
  */
 import React from "react";
 import { connect } from "react-redux";
@@ -10,6 +10,7 @@ import { MenuSvg, CloseSvg, LeftArrowSvg } from '@/library/icons';
 import classN from 'classnames';
 import logoImg from '@/assets/header_logo.png'
 import diamondImg from '@/assets/common_diamond_blue.png'
+import { LogoSvg } from '@/commons/svgIcon';
 import "./Header.less";
 
 
@@ -52,21 +53,20 @@ function Header(props) {
             'layout-m-header-black': [2, 4].includes(props.pageCfg.headerThemeM),
             'layout-m-header-blue': [1, 3].includes(props.pageCfg.headerThemeM)
         })}>
-            <span className="lmh-left" style={{'transform': props.lang === 'ar' ? 'rotate(180deg)' : ''}}>
+            <span className="lmh-left">
                 {[3, 4].includes(props.pageCfg.headerThemeM) ?
-                    // <img src={logoImg} alt="logo" className="lmh-logo" />
-                    <span></span>
+                    <LogoSvg width="117px" height="33px" onClick={() => props.navigate("/home")}/>
                     :
-                    <LeftArrowSvg onClick={handleGoBack} className="lmh-icon" color="#fff" />
+                    <span style={{'transform': props.lang === 'ar' ? 'rotate(180deg)' : ''}}>
+                        <LeftArrowSvg onClick={handleGoBack} className="lmh-icon" color="#fff" />
+                    </span>
                 }
             </span>
             {
                 (props.pageCfg.headerThemeM === 1 || props.pageCfg.headerThemeM === 2) ?
                     <span className="lmh-center">{props.pageCfg.title}</span>
                     :
-                    <span className="lmh-center">
-                        <img src={logoImg} alt="logo" className="lmh-logo" />
-                    </span>
+                    <></>
             }
 
             <span className="lmh-right">

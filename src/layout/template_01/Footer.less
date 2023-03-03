@@ -1,5 +1,5 @@
 .layout-d-footer {
-	background-color: #34303E;
+	background: linear-gradient(90deg, #1f1f1f 0%, #1a1a1a 100%);
 	font-size: 24px;
 	position: relative;
 	width: 100%;
@@ -7,108 +7,104 @@
 	.footerBox {
 		width: 1280px;
 		margin: 0 auto;
-		padding: 48px 20px;
+		padding: 42px 20px;
 		display: flex;
-		justify-content: flex-start;
-		align-items: flex-start;
+		justify-content: space-between;
+		align-items: center;
 		&>div:nth-of-type(1) {
-			flex-shrink: 0;
-			width: 122px;
-			margin-right: 160px;
-			&>img {
-				height: 27px;
-				display: block;
-				margin-bottom: 36px;
-			}
-			&>p {
-				font-family: 'LatoBold';
-				font-weight: 700;
-				font-size: 14px;
-				line-height: 116%;
-				color: #FFFFFF;
-			}
-			.contactSvgBox {
-				width: 100%;
+			& > p:nth-of-type(1) {
 				display: flex;
-				justify-content: space-between;
+				justify-content: flex-start;
 				align-items: center;
-				.contactSvg {
-					width: 24px;
-					cursor: pointer;
-				}
-			}
-			.changeLanguage {
-				margin-top: 40px;
-				cursor: pointer;
-				&-menu {
-					display: inline-flex;
-					justify-content: flex-start;
-					align-items: center;
-					border: 1px solid #FFFFFF;
-					border-radius: 100px;
-					font-family: 'LatoBold';
+				margin: 0 0 15px 0;
+				& > span:nth-of-type(1), & > span:nth-of-type(3) {
+					font-size: 16px;
+					font-family: Poppins-SemiBold;
 					font-weight: 600;
-					font-size: 12px;
-					line-height: 130%;
-					letter-spacing: 0.03em;
 					color: #FFFFFF;
-					padding: 5px 10px;
-					&-svg {
-						margin-left: 20px;
+					margin-right: 30px;
+					cursor: pointer;
+					&:hover {
+						text-decoration-line: underline;
 					}
 				}
+				& > span:nth-of-type(3) {
+					margin: 0 0 0 30px;
+				}
+				& > span:nth-of-type(2) {
+					width: 3px;
+					height: 16px;
+					background: #fff;
+				}
+			}
+			& > p:nth-of-type(2) {
+				font-size: 16px;
+				font-family: Poppins-Regular;
+				font-weight: 400;
+				color: #FFFFFF;
+				margin: 0;
 			}
 		}
 		&>div:nth-of-type(2) {
-			flex-grow: 1;
-			.topBox {
-				display: flex;
-				justify-content: flex-start;
-				align-items: flex-start;
-				.linkBox {
-					width: 125px;
-					margin-right: 70px;
-					&>a {
-						font-family: 'Lato';
-						font-weight: 300;
-						font-size: 14px;
-						line-height: 116%;
-						color: #FFFFFF;
-						cursor: pointer;
-						display: block;
-						margin-bottom: 8px;
-						text-decoration: none;
-						&:hover {
-							text-decoration: underline;
-						}
-					}
-					&>a:nth-of-type(1) {
-						font-family: 'LatoBold';
-						font-weight: 700;
-						font-size: 14px;
-						line-height: 116%;
-						color: #FFFFFF;
-						cursor: auto;
-						margin-bottom: 23px;
-						&:hover {
-							text-decoration: none;
-						}
-					}
-				}
-				.linkBox:nth-last-of-type(1) {
-					margin-right: 0;
-				}
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			img {
+				width: 40px;
+				display: block;
+				cursor: pointer;
 			}
-			.companyDes {
-				font-family: 'Lato';
-				font-weight: 300;
-				font-size: 14px;
-				line-height: 116%;
-				color: rgba(255, 255, 255, 0.5);
-				margin: 50px 0 0 0;
-				text-align: right;
+			.marginRight18 {
+				margin-right: 18px;
 			}
 		}
+	}
+}
+
+@media screen and (min-width: 1800px) {
+	.layout-d-footer {
+		.footerBox {
+			width: 1480px;
+			padding: 52px 120px;
+			&>div:nth-of-type(1) {
+				& > p:nth-of-type(1) {
+					margin: 0 0 15px 0;
+					& > span:nth-of-type(1), & > span:nth-of-type(3) {
+						font-size: 20px;
+						margin-right: 40px;
+					}
+					& > span:nth-of-type(3) {
+						margin: 0 0 0 40px;
+					}
+					& > span:nth-of-type(2) {
+						width: 3px;
+						height: 16px;
+						background: #fff;
+					}
+				}
+				& > p:nth-of-type(2) {
+					font-size: 20px;
+				}
+			}
+			&>div:nth-of-type(2) {
+				img {
+					width: 51px;
+				}
+				.marginRight18 {
+					margin-right: 23px;
+				}
+			}
+		}
+	}
+}
+
+.fixedFooter {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background: transparent !important;
+	.footerBox {
+		border-top: 1px solid #888;
 	}
 }
 html[dir='rtl'] .layout-desktop-footer {

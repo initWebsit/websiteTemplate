@@ -4,7 +4,7 @@ export default {
     mock: false,
     nodeEnv: 'test',
     useDomain: false,
-    host_official: protocol + '//' + hostname + ':6122',
+    host_official: protocol + '//' + hostname + ':6142',
     api_help: '/proxyHelp',
     api_api: '/proxyApi',
     api_client: '/proxyClient',

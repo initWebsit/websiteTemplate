@@ -1,7 +1,7 @@
 /*
  + ------------------------------------------------------------------
  | 导航
- + ------------------------------------------------------------------ 
+ + ------------------------------------------------------------------
  */
 import React from "react";
 import { connect } from "react-redux";
@@ -10,7 +10,7 @@ import { setSession } from '@/commons/storage';
 import { langDict } from '@/commons/I18N';
 import classN from 'classnames';
 import { TriangleSvg } from '@/library/icons';
-import logoImg from '@/assets/header_logo.png'
+import { LogoSvg } from '@/commons/svgIcon';
 import { useNavigate } from "react-router-dom";
 import "./Header.less";
 
@@ -29,7 +29,7 @@ function Header(props) {
             'layout-d-header-filled': props.pageCfg.headerThemeD === 1,
         })}>
             <section className="headerBox">
-                <img src={logoImg} alt="logo" className="ldh-left-logo" onClick={() => navigate('/about')}/>
+                <LogoSvg className="logoSvg" onClick={() => navigate("/home")}/>
                 <div>
                     <div className="ldh-nav">
                         {$_.filter(props.navMenu, o => o.pcNavStatus > 0).map((o, idx) => (

@@ -6,9 +6,9 @@ web的mobile, pc端模版框架，含：桌面端和移动端。
 ```
 npm install		            # 安装依赖模块1
 
-npm run start		         # 运行开发环境: http://localhost:6120
+npm run start		         # 运行开发环境: http://localhost:6140
 npm run build		         # 正式打包，用于生产环境
-npm run pre-release	      # 运行正式打包后的最终文件（dist目录下的文件）: http://localhost:6122
+npm run pre-release	      # 运行正式打包后的最终文件（dist目录下的文件）: http://localhost:6142
 ```
 
 ## 目录结构 Structure
