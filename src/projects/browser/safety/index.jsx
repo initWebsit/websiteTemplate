@@ -4,7 +4,6 @@
  + ------------------------------------------------------------------ 
  */
 import React from "react";
-import { connect } from "react-redux";
 import safety_banner from "@/assets/safety_banner.png";
 import safety_mobileBanner from "@/assets/safety_mobileBanner.png";
 import safety_trust from "@/assets/safety_trust.png";
@@ -111,11 +110,4 @@ function Safety(props) {
     );
 }
 
-export default connect(
-    (state) => {
-        return {};
-    },
-    (dispatch) => ({
-        actions: {}
-    })
-)(Safety);
+export default Safety;

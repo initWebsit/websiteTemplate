@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@loadable/component": "^5.15.0",
-    "@rematch/core": "^2.0.1",
+    "@reduxjs/toolkit": "~2.5.0",
     "ahooks": "^2.10.9",
     "axios": "^0.21.1",
     "body-scroll-lock": "^3.1.5",

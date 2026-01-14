@@ -5,7 +5,6 @@
  */
 
 import React from "react";
-import { connect } from "react-redux";
 
 import "./index.less";
 
@@ -17,9 +16,4 @@ function NotFoundPageContainer() {
   );
 }
 
-export default connect(
-  (state) => ({}),
-  (dispatch) => ({
-    actions: {},
-  })
-)(NotFoundPageContainer);
+export default NotFoundPageContainer;

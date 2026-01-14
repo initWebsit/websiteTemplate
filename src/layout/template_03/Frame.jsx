@@ -7,11 +7,12 @@ import React, { useState, useEffect } from 'react'
 import Header from './Header'
 import Background from './Background'
 import classN from 'classnames'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import './Frame.less'
 
-function ClientFrame(props) {
+function ClientFrame() {
+	const pageCfg = useSelector(state => state.app.pageCfg);
 	const [resizeState, setResizeState] = useState(false);
 
 	const resizeFunc = () => {
@@ -30,7 +31,7 @@ function ClientFrame(props) {
 	return (
 		<div
 			className={classN('layout-c-frame', {
-				'layout-c-frame-blue': props.pageCfg.pageThemeC === 1,
+				'layout-c-frame-blue': pageCfg.pageThemeC === 1,
 			})}
 		>
 			<Header />
@@ -40,7 +41,7 @@ function ClientFrame(props) {
 				style={{
 					height:
 						window.innerHeight -
-						props.pageCfg.statusBarHeight -
+						pageCfg.statusBarHeight -
 						50 +
 						'px',
 				}}
@@ -51,4 +52,4 @@ function ClientFrame(props) {
 	)
 }
 
-export default connect(({ app }) => $_.pick(app, ['pageCfg']))(ClientFrame)
+export default ClientFrame

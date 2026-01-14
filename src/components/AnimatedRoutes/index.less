@@ -1,0 +1,128 @@
+/*
+ + ------------------------------------------------------------------
+ | 路由过渡动画样式
+ + ------------------------------------------------------------------ 
+ */
+
+.animated-routes-wrapper {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.route-transition-container {
+	width: 100%;
+	height: 100%;
+}
+
+/* ========== 淡入淡出动画 ========== */
+.route-transition-fade-enter {
+	opacity: 0;
+}
+
+.route-transition-fade-enter-active {
+	opacity: 1;
+	transition: opacity 300ms ease-in-out;
+}
+
+.route-transition-fade-exit {
+	opacity: 1;
+}
+
+.route-transition-fade-exit-active {
+	opacity: 0;
+	transition: opacity 300ms ease-in-out;
+}
+
+/* ========== 左右滑动动画 ========== */
+.route-transition-slide-enter {
+	opacity: 0;
+	transform: translateX(30px);
+}
+
+.route-transition-slide-enter-active {
+	opacity: 1;
+	transform: translateX(0);
+	transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+.route-transition-slide-exit {
+	opacity: 1;
+	transform: translateX(0);
+}
+
+.route-transition-slide-exit-active {
+	opacity: 0;
+	transform: translateX(-30px);
+	transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+/* ========== 向上滑动动画 ========== */
+.route-transition-slideUp-enter {
+	opacity: 0;
+	transform: translateY(30px);
+}
+
+.route-transition-slideUp-enter-active {
+	opacity: 1;
+	transform: translateY(0);
+	transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+.route-transition-slideUp-exit {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.route-transition-slideUp-exit-active {
+	opacity: 0;
+	transform: translateY(-30px);
+	transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+/* ========== 向下滑动动画 ========== */
+.route-transition-slideDown-enter {
+	opacity: 0;
+	transform: translateY(-30px);
+}
+
+.route-transition-slideDown-enter-active {
+	opacity: 1;
+	transform: translateY(0);
+	transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+.route-transition-slideDown-exit {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.route-transition-slideDown-exit-active {
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+/* ========== 缩放淡入动画 ========== */
+.route-transition-scale-enter {
+	opacity: 0;
+	transform: scale(0.95);
+}
+
+.route-transition-scale-enter-active {
+	opacity: 1;
+	transform: scale(1);
+	transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+.route-transition-scale-exit {
+	opacity: 1;
+	transform: scale(1);
+}
+
+.route-transition-scale-exit-active {
+	opacity: 0;
+	transform: scale(0.95);
+	transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+

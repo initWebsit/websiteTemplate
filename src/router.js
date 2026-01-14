@@ -3,8 +3,8 @@
  | 路由页 - 实际意义上的根组件，已挂载到redux上，可获取store中的内容
  + ------------------------------------------------------------------ 
  */
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import {
 	Routes,
 	Route,
@@ -12,6 +12,8 @@ import {
 	useNavigate,
 	useLocation,
 } from 'react-router-dom'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import { setNavMenu, setPageCfg, setFloatMenu } from '@/store/app'
 import { callAppFunc } from '@/commons/clientSdk'
 import pageConfigB, {
 	defaultPageConfig as defaultPageConfigB,
@@ -29,6 +31,7 @@ import AFrame from './layout/template_03/Frame'
 import DContent from './layout/template_01/Content'
 import MContent from './layout/template_02/Content'
 import AContent from './layout/template_03/Content'
+import './router.less'
 
 $_.forEach(pageConfigB, (o) => {
 	o.pageConfig = {
@@ -77,10 +80,11 @@ const contentWrap = (Component) => {
 	}
 }
 
-function RouterContainer(props) {
+function RouterContainer() {
 	const location = useLocation()
 	const navigate = useNavigate()
-	props.actions.setNavigate(navigate)
+	const dispatch = useDispatch()
+	const userInfo = useSelector(state => state.app.userInfo)
 
 	const updatePageInfo = async () => {
 		let _page = $_.find(
@@ -101,11 +105,11 @@ function RouterContainer(props) {
 			let _deviceInfo = await callAppFunc('getStatusBarHeight')
 			_pageConfig['statusBarHeight'] = _deviceInfo?.height || 0
 		}
-		props.actions.setPageCfg(_pageConfig)
-		props.actions.setFloatMenu(false)
+		dispatch(setPageCfg(_pageConfig))
+		dispatch(setFloatMenu(false))
 	}
 
-	React.useEffect(() => {
+	useEffect(() => {
 		updatePageInfo()
 	}, [location])
 
@@ -114,17 +118,20 @@ function RouterContainer(props) {
 	if ($q.is.mobile) curPlatform = 'h5'
 	if ($q.is.client) curPlatform = 'client'
 
-	$_.includes(['h5', 'pc'], curPlatform) &&
-		props.actions.setNavMenu(
-			$_.map(pageConfigB, (p) =>
-				$_.pick(p.pageConfig, [
-					'title',
-					'path',
-					'h5NavStatus',
-					'pcNavStatus',
-				])
-			)
-		)
+	useEffect(() => {
+		if ($_.includes(['h5', 'pc'], curPlatform)) {
+			dispatch(setNavMenu(
+				$_.map(pageConfigB, (p) =>
+					$_.pick(p.pageConfig, [
+						'title',
+						'path',
+						'h5NavStatus',
+						'pcNavStatus',
+					])
+				)
+			))
+		}
+	}, [curPlatform, dispatch])
 
 	let browserRouteList = $_.filter(pageConfigB, (p) =>
 		$_.includes(p.platform, curPlatform)
@@ -161,49 +168,50 @@ function RouterContainer(props) {
 	}))
 
 	return (
-		<Routes>
-			<Route path="/" element={$q.is.desktop ? <DFrame /> : <MFrame />}>
-				<Route
-					index
-					element={$_.get(
-						$_.find(browserRouteList, (o) => o.default),
-						'options.element'
-					)}
-				/>
-				{$_.map(browserRouteList, (r) => (
-					<Route {...r.options} />
-				))}
-			</Route>
-			<Route path="client" element={<AFrame />}>
-				{$_.map(clientRouteList, (r, rIdx) => (
-					<Route key={rIdx} {...r.options} />
-				))}
-			</Route>
-			<Route path="guild" element={<AFrame />}>
-				{$_.map(guildRouteList, (r, rIdx) => (
-					<Route key={rIdx} {...r.options} />
-				))}
-			</Route>
-			{$_.map(otherRouteList, (r, rIdx) => (
-				<Route key={rIdx} {...r.options} />
-			))}
-			<Route
-				path="/income"
-				element={<Navigate replace to="/client/income" />}
-			/>
-			<Route path="*" element={<Navigate replace to="/" />} />
-		</Routes>
+		<TransitionGroup className="route-transition-wrapper">
+			<CSSTransition
+				key={location.pathname}
+				timeout={300}
+				classNames="route-transition"
+				unmountOnExit
+			>
+				<div className="route-transition-container">
+					<Routes location={location}>
+						<Route path="/" element={$q.is.desktop ? <DFrame /> : <MFrame />}>
+							<Route
+								index
+								element={$_.get(
+									$_.find(browserRouteList, (o) => o.default),
+									'options.element'
+								)}
+							/>
+							{$_.map(browserRouteList, (r) => (
+								<Route {...r.options} />
+							))}
+						</Route>
+						<Route path="client" element={<AFrame />}>
+							{$_.map(clientRouteList, (r, rIdx) => (
+								<Route key={rIdx} {...r.options} />
+							))}
+						</Route>
+						<Route path="guild" element={<AFrame />}>
+							{$_.map(guildRouteList, (r, rIdx) => (
+								<Route key={rIdx} {...r.options} />
+							))}
+						</Route>
+						{$_.map(otherRouteList, (r, rIdx) => (
+							<Route key={rIdx} {...r.options} />
+						))}
+						<Route
+							path="/income"
+							element={<Navigate replace to="/client/income" />}
+						/>
+						<Route path="*" element={<Navigate replace to="/" />} />
+					</Routes>
+				</div>
+			</CSSTransition>
+		</TransitionGroup>
 	)
 }
 
-export default connect(
-	({ app }) => $_.pick(app, ['userInfo']),
-	({ app }) => ({
-		actions: $_.pick(app, [
-			'setNavMenu',
-			'setPageCfg',
-			'setFloatMenu',
-			'setNavigate',
-		]),
-	})
-)(RouterContainer)
+export default RouterContainer

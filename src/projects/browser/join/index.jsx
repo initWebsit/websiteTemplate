@@ -4,7 +4,6 @@
  + ------------------------------------------------------------------ 
  */
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
 import { useLocation } from "react-router-dom";
 import join_banner from '@/assets/join_banner.png';
 import join_mobileBanner from '@/assets/join_mobileBanner.png';
@@ -201,11 +200,4 @@ function JoinPage(props) {
     );
 }
 
-export default connect(
-    (state) => {
-        return {};
-    },
-    (dispatch) => ({
-        actions: {}
-    })
-)(JoinPage);
+export default JoinPage;

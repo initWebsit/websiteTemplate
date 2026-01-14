@@ -4,7 +4,6 @@
  + ------------------------------------------------------------------ 
  */
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
 import aboutBanner1 from "@/assets/about_banner1.png";
 import aboutSwiper1 from "@/assets/about_swiper1.png";
 import aboutSwiper2 from "@/assets/about_swiper2.png";
@@ -285,11 +284,4 @@ function About(props) {
     );
 }
 
-export default connect(
-    (state) => {
-        return {};
-    },
-    (dispatch) => ({
-        actions: {}
-    })
-)(About);
+export default About;

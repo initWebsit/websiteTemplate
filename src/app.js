@@ -15,6 +15,7 @@ import { callAppFunc } from '@/commons/clientSdk'
 import cfg from '@/config'
 import store from './store'
 import Routers from './router'
+import { getWebSession, getUserInfo, setConfig } from './store/app'
 import { getCurrentLang } from '@/commons/I18N'
 import Loading from "./library/loading/loading";
 
@@ -102,11 +103,11 @@ export default function AppContainer() {
 		}
 
 		if (userToken) {
-			await store.dispatch.app.getWebSession()
-			await store.dispatch.app.getUserInfo()
+			await store.dispatch(getWebSession())
+			await store.dispatch(getUserInfo())
 		}
 
-		store.dispatch.app.setConfig({ ...cfg, ...(cfg[platform] || {}) })
+		store.dispatch(setConfig({ ...cfg, ...(cfg[platform] || {}) }))
 		document.documentElement.setAttribute(
 			'dir',
 			$_.includes(['ar'], getCurrentLang()) ? 'rtl' : 'ltr'

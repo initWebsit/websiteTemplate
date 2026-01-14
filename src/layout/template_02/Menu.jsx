@@ -4,7 +4,8 @@
  + ------------------------------------------------------------------ 
  */
 import React, { useState, useEffect, useRef } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Picker } from '@/library/ui';
 import { setSession } from '@/commons/storage';
 import I18N, { langDict } from '@/commons/I18N';
@@ -12,6 +13,7 @@ import { removeURLParameter } from '@/commons/tools';
 import classN from 'classnames';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { RightArrowSvg, TriangleSvg } from '@/library/icons';
+import { dealLogout, setFloatMenu, jumpLoginPage, setPageCfg, setSimpleState } from '@/store/app';
 import "./Menu.less";
 
 
@@ -26,7 +28,15 @@ const LanguageSvg = (props) => {
     )
 }
 
-function MenuComp(props) {
+function MenuComp() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const userInfo = useSelector(state => state.app.userInfo);
+    const navMenu = useSelector(state => state.app.navMenu);
+    const lang = useSelector(state => state.app.lang);
+    const floatMenu = useSelector(state => state.app.floatMenu);
+    const pageCfg = useSelector(state => state.app.pageCfg);
+    
     const [showPopup, setShowPopup] = useState(false);
     const [langValue, setLangValue] = useState([]);
     const [menus, setMenus] = useState([]);
@@ -34,36 +44,36 @@ function MenuComp(props) {
 
     useEffect(() => {
         const element = ref.current;
-        if (['zh', 'zh-CN'].includes(props.lang)) {
+        if (['zh', 'zh-CN'].includes(lang)) {
             setLangValue(['zh-S', 'i']);
         }
-        else if (['zh-TW', 'zh-HK'].includes(props.lang)) {
+        else if (['zh-TW', 'zh-HK'].includes(lang)) {
             setLangValue(['zh-T', 'i']);
         } else {
-            setLangValue([props.lang, 'i']);
+            setLangValue([lang, 'i']);
         }
         disableBodyScroll(element);
         return () => {
             enableBodyScroll(element);
         }
-    }, []);
+    }, [lang]);
 
     //- 用于生成用户菜单 
     useEffect(() => {
-        let _menus = $_.filter(props.navMenu, p => {
+        let _menus = $_.filter(navMenu, p => {
             switch (p.h5NavStatus) {
                 case 1:
                     return true;
                 case 2:
-                    return !$_.isEmpty(props.userInfo);
+                    return !$_.isEmpty(userInfo);
                 case 3:
-                    return $_.isEmpty(props.userInfo);
+                    return $_.isEmpty(userInfo);
                 default:
                     return false;
             }
         });
         setMenus(_menus)
-    }, [props.userInfo])
+    }, [userInfo, navMenu])
 
 
     const handleChangeLang = (arr) => {
@@ -75,38 +85,38 @@ function MenuComp(props) {
     }
 
     const goToSpecifyPage = (opts) => {
-        // if ((new RegExp('/' + opts.value)).test(xxxx)) return props.actions.setFloatMenu(false);
+        // if ((new RegExp('/' + opts.value)).test(xxxx)) return dispatch(setFloatMenu(false));
         if (opts.path === 'login') {
-            props.actions.setSimpleState({ key: 'bfCache', value: true });
-            props.actions.jumpLoginPage('push');
+            dispatch(setSimpleState({ key: 'bfCache', value: true }));
+            dispatch(jumpLoginPage('push'));
         } else {
-            props.navigate(opts.path);
-            props.actions.setFloatMenu(false);
+            navigate(opts.path);
+            dispatch(setFloatMenu(false));
         }
     }
 
     const handleLogout = () => {
-        props.actions.dealLogout().then(() => {
-            props.actions.setFloatMenu(false)
-            props.pageCfg.headerThemeM === 3 && props.actions.setPageCfg({ headerThemeM: 2 })
+        dispatch(dealLogout()).then(() => {
+            dispatch(setFloatMenu(false))
+            pageCfg.headerThemeM === 3 && dispatch(setPageCfg({ headerThemeM: 2 }))
         });
     }
 
 
     return (
-        <section className={classN("layout-m-menu", props.floatMenu ? 'entering' : 'leaving')} ref={ref}>
-            {$_.isObject(props.userInfo) && !$_.isEmpty(props.userInfo) &&
+        <section className={classN("layout-m-menu", floatMenu ? 'entering' : 'leaving')} ref={ref}>
+            {$_.isObject(userInfo) && !$_.isEmpty(userInfo) &&
                 <div className="lmm-user">
                     <img className="lmm-user-photo"
                         src={
-                            props.userInfo?.icon ?
-                                props.userInfo.icon + '!head150' :
+                            userInfo?.icon ?
+                                userInfo.icon + '!head150' :
                                 "https://xs-image.oss-cn-hangzhou.aliyuncs.com/ic_default.png!head150"
                         }
                     />
                     <span className="lmm-user-info">
-                        <div className="lmm-user-name">{props.userInfo.name}</div>
-                        <div className="lmm-user-id">ID:{props.userInfo.uid}</div>
+                        <div className="lmm-user-name">{userInfo.name}</div>
+                        <div className="lmm-user-id">ID:{userInfo.uid}</div>
                     </span>
                     <span className="lmm-user-exit" onClick={handleLogout}>{I18N.common.logout}</span>
                 </div>
@@ -127,7 +137,7 @@ function MenuComp(props) {
                 // <div className="lmm-lang" >
                 //     <span onClick={() => setShowPopup(true)}>
                 //         <LanguageSvg className="lmm-lang-language" color="#fff"/>
-                //         {$_.get($_.find(langDict, (o) => $_.includes($_.concat([], o.value), props.lang)), 'text')}
+                //         {$_.get($_.find(langDict, (o) => $_.includes($_.concat([], o.value), lang)), 'text')}
                 //         <TriangleSvg className="lmm-lang-triangle" color="#fff" />
                 //     </span>
                 // </div>
@@ -145,13 +155,6 @@ function MenuComp(props) {
     );
 }
 
-export default connect(
-    ({ app }) => ($_.pick(app, ['userInfo', 'navMenu', 'lang', 'floatMenu', 'navigate', 'pageCfg'])),
-    ({ app }) => ({
-        actions: $_.pick(app,
-            ['dealLogout', 'setFloatMenu', 'jumpLoginPage', 'setPageCfg', 'setSimpleState']
-        )
-    })
-)(MenuComp)
+export default MenuComp
 
 

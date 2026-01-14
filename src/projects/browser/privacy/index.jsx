@@ -4,7 +4,6 @@
  + ------------------------------------------------------------------ 
  */
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
 import { SafetySvg2 } from "@browser/safety/safetySvg";
 import "./index.less";
 
@@ -834,11 +833,4 @@ function Privacy(props) {
     );
 }
 
-export default connect(
-    (state) => {
-        return {};
-    },
-    (dispatch) => ({
-        actions: {}
-    })
-)(Privacy);
+export default Privacy;

@@ -4,17 +4,23 @@
  + ------------------------------------------------------------------ 
  */
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import I18N from '@/commons/I18N';
 import { MenuSvg, CloseSvg, LeftArrowSvg } from '@/library/icons';
 import classN from 'classnames';
 import logoImg from '@/assets/header_logo.png'
-import diamondImg from '@/assets/common_diamond_blue.png'
+import diamondImg from '@/assets/common_diamond_blue.png';
+import { jumpRechargePage, setFloatMenu } from '@/store/app';
 import "./Header.less";
 
 
-const CompDiamon = (props) => {
-    const handleGotoRecharge = () => props.actions.jumpRechargePage();
+const CompDiamon = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const handleGotoRecharge = () => {
+        dispatch(jumpRechargePage({ navigate }));
+    };
 
     return (
         <div className="lmh-diamond" onClick={handleGotoRecharge}>
@@ -31,14 +37,20 @@ const CompDiamon = (props) => {
 }
 
 
-function Header(props) {
+function Header({ menuCloseLock, menuOpenLock }) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const floatMenu = useSelector(state => state.app.floatMenu);
+    const pageCfg = useSelector(state => state.app.pageCfg);
+    const lang = useSelector(state => state.app.lang);
+
     const handleGoBack = () => {
-        props.navigate(-1)
+        navigate(-1)
     }
 
     const handleMenuAction = () => {
-        // if (props.menuCloseLock || props.menuOpenLock) return;
-        props.actions.setFloatMenu(!props.floatMenu);
+        // if (menuCloseLock || menuOpenLock) return;
+        dispatch(setFloatMenu(!floatMenu));
         // if ([3, 4].includes(props.pageCfg.headerThemeM)) {
         //     props.actions.setPageCfg({ headerThemeM: !props.floatMenu ? 3 : 4 })
         // }
@@ -49,11 +61,11 @@ function Header(props) {
 
     return (<>
         <header className={classN('layout-m-header', {
-            'layout-m-header-black': [2, 4].includes(props.pageCfg.headerThemeM),
-            'layout-m-header-blue': [1, 3].includes(props.pageCfg.headerThemeM)
+            'layout-m-header-black': [2, 4].includes(pageCfg.headerThemeM),
+            'layout-m-header-blue': [1, 3].includes(pageCfg.headerThemeM)
         })}>
-            <span className="lmh-left" style={{'transform': props.lang === 'ar' ? 'rotate(180deg)' : ''}}>
-                {[3, 4].includes(props.pageCfg.headerThemeM) ?
+            <span className="lmh-left" style={{'transform': lang === 'ar' ? 'rotate(180deg)' : ''}}>
+                {[3, 4].includes(pageCfg.headerThemeM) ?
                     // <img src={logoImg} alt="logo" className="lmh-logo" />
                     <span></span>
                     :
@@ -61,8 +73,8 @@ function Header(props) {
                 }
             </span>
             {
-                (props.pageCfg.headerThemeM === 1 || props.pageCfg.headerThemeM === 2) ?
-                    <span className="lmh-center">{props.pageCfg.title}</span>
+                (pageCfg.headerThemeM === 1 || pageCfg.headerThemeM === 2) ?
+                    <span className="lmh-center">{pageCfg.title}</span>
                     :
                     <span className="lmh-center">
                         <img src={logoImg} alt="logo" className="lmh-logo" />
@@ -70,18 +82,15 @@ function Header(props) {
             }
 
             <span className="lmh-right">
-                {/*<CompDiamon {...props} />*/}
-                {props.floatMenu ?
+                {/*<CompDiamon />*/}
+                {floatMenu ?
                     <CloseSvg onClick={handleMenuAction} color='#fff' className='lmh-close' /> :
                     <MenuSvg onClick={handleMenuAction} color='#fff' opacity={1} />
                 }
             </span>
         </header>
-        {props.pageCfg.headerPadM === 1 && <div className="layout-m-header-pad" />}
+        {pageCfg.headerPadM === 1 && <div className="layout-m-header-pad" />}
     </>)
 }
 
-export default connect(
-    ({ app }) => ($_.pick(app, ['floatMenu', 'pageCfg', 'navigate', 'lang'])),
-    ({ app }) => ({ actions: $_.pick(app, ['setFloatMenu', 'jumpRechargePage', 'setPageCfg']) })
-)(Header)
+export default Header

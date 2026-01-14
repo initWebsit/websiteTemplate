@@ -5,12 +5,11 @@
  */
 import React, { useEffect } from 'react'
 import classN from 'classnames';
-import { connect } from "react-redux";
 import { RechargeBgSvg, IncomeBgSvg } from './svgIcon';
 
 import './Background.less';
 
-function Background(props) {
+function Background() {
 
 
     return (
@@ -21,7 +20,4 @@ function Background(props) {
 }
 
 
-export default connect(
-    ({ app }) => ($_.pick(app, ['pageCfg'])),
-    ({ app }) => ($_.pick(app, []))
-)(Background)
+export default Background

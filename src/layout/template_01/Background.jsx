@@ -5,16 +5,17 @@
  */
 import React, { useEffect } from 'react'
 import classN from 'classnames';
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
 
 import './Background.less';
 
-function Background(props) {
+function Background() {
+    const pageCfg = useSelector(state => state.app.pageCfg);
 
     return (
         <section className={classN('layout-d-backgound',{
-            'layout-d-backgound-blue':props.pageCfg.pageThemeD === 1
+            'layout-d-backgound-blue': pageCfg.pageThemeD === 1
         })}>
             
         </section>
@@ -22,7 +23,4 @@ function Background(props) {
 }
 
 
-export default connect(
-    ({ app }) => ($_.pick(app, ['pageCfg'])),
-    ({ app }) => ($_.pick(app, []))
-)(Background)
+export default Background

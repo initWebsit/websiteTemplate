@@ -4,7 +4,7 @@
  + ------------------------------------------------------------------ 
  */
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { Popover } from '@/library/ui';
 import { setSession } from '@/commons/storage';
 import { langDict } from '@/commons/I18N';
@@ -15,8 +15,11 @@ import { useNavigate } from "react-router-dom";
 import "./Header.less";
 
 
-function Header(props) {
+function Header() {
     const navigate = useNavigate();
+    const lang = useSelector(state => state.app.lang);
+    const navMenu = useSelector(state => state.app.navMenu);
+    const pageCfg = useSelector(state => state.app.pageCfg);
     const handleChangeLang = (opts) => {
         let _lang = opts.value;
         if ($_.isArray(_lang)) _lang = _lang[0];
@@ -26,19 +29,19 @@ function Header(props) {
 
     return (<>
         <header className={classN('layout-d-header', {
-            'layout-d-header-filled': props.pageCfg.headerThemeD === 1,
+            'layout-d-header-filled': pageCfg.headerThemeD === 1,
         })}>
             <section className="headerBox">
                 <img src={logoImg} alt="logo" className="ldh-left-logo" onClick={() => navigate('/about')}/>
                 <div>
                     <div className="ldh-nav">
-                        {$_.filter(props.navMenu, o => o.pcNavStatus > 0).map((o, idx) => (
+                        {$_.filter(navMenu, o => o.pcNavStatus > 0).map((o, idx) => (
                             <a key={idx}
                                className={classN({
-                                   'ldh-nav-active': props.pageCfg.path === o.path,
-                                   'ldh-nav-active-black': props.pageCfg.path === o.path && props.pageCfg.headerThemeD === 2
+                                   'ldh-nav-active': pageCfg.path === o.path,
+                                   'ldh-nav-active-black': pageCfg.path === o.path && pageCfg.headerThemeD === 2
                                })}
-                               onClick={() => props.navigate(o.path)}
+                               onClick={() => navigate(o.path)}
                             >
                                 {o.title}
                             </a>)
@@ -48,8 +51,8 @@ function Header(props) {
                         // <div className="ldh-right">
                         //     <Popover.Menu actions={langDict} onSelect={handleChangeLang} placement={'bottom'}>
                         //     <span className="ldh-right-menu">
-                        //         {$_.get($_.find(langDict, (o) => $_.includes($_.concat([], o.value), props.lang)), 'text')}
-                        //         <TriangleSvg color={props.pageCfg.headerThemeD === 1 && '#fff'} />
+                        //         {$_.get($_.find(langDict, (o) => $_.includes($_.concat([], o.value), lang)), 'text')}
+                        //         <TriangleSvg color={pageCfg.headerThemeD === 1 && '#fff'} />
                         //     </span>
                         //     </Popover.Menu>
                         // </div>
@@ -57,14 +60,9 @@ function Header(props) {
                 </div>
             </section>
         </header >
-        {props.pageCfg.headerPadD === 1 && <div className="layout-d-header-pad" />}
+        {pageCfg.headerPadD === 1 && <div className="layout-d-header-pad" />}
     </>);
 }
 
 
-export default connect(
-    ({ app }) => ($_.pick(app, ['lang', 'navMenu', 'pageCfg', 'navigate'])),
-    ({ app }) => ({
-        actions: $_.pick(app, ['jumpRechargePage'])
-    })
-)(Header)
+export default Header

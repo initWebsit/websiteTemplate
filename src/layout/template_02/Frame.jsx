@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom';
 import Header from './Header'
 import Menu from './Menu'
@@ -9,20 +9,22 @@ import './Frame.less'
 
 const DurationTime = 200
 
-function MobileLayout(props) {
+function MobileLayout() {
     const [menuCloseDelay, setMenuCloseDelay] = useState(0)
     const [menuCloseLock, setMenuCloseLock] = useState(false)
     const [menuOpenLock, setMenuOpenLock] = useState(false)
     const [resizeStatus, setResizeState] = useState(false)
+    const floatMenu = useSelector(state => state.app.floatMenu);
+    const bfCache = useSelector(state => state.app.bfCache);
 
     if ($q.is.android) {
         window.addEventListener('visibilitychange', () => {
-            document.visibilityState == 'visible' && props.bfCache && window.location.reload();
+            document.visibilityState == 'visible' && bfCache && window.location.reload();
         })
     }
     if ($q.is.ios) {
         window.addEventListener('pageshow', () => {
-            document.visibilityState == 'visible' && props.bfCache && window.location.reload();
+            document.visibilityState == 'visible' && bfCache && window.location.reload();
         })
     }
 
@@ -32,20 +34,20 @@ function MobileLayout(props) {
 
 
     useEffect(() => {
-        if (props.floatMenu && menuCloseDelay === 0) {
+        if (floatMenu && menuCloseDelay === 0) {
             setMenuCloseDelay(DurationTime)
             setMenuOpenLock(true)
             setTimeout(() => setMenuOpenLock(false), DurationTime)
         }
 
-        if (!props.floatMenu && menuCloseDelay > 0) {
+        if (!floatMenu && menuCloseDelay > 0) {
             setMenuCloseLock(true)
             setTimeout(() => {
                 setMenuCloseDelay(0)
                 setMenuCloseLock(false)
             }, DurationTime)
         }
-    }, [props.floatMenu])
+    }, [floatMenu, menuCloseDelay])
 
     useEffect(() => {
         window.addEventListener('resize', resizeFunc)
@@ -61,13 +63,10 @@ function MobileLayout(props) {
         <div className="layout-m-frame" style={{ height: window.innerHeight > 200 ? window.innerHeight : 200 }}>
             {/*<Background />*/}
             <Header menuCloseLock={menuCloseLock} menuOpenLock={menuOpenLock} />
-            {(props.floatMenu || menuCloseDelay > 0) && <Menu />}
+            {(floatMenu || menuCloseDelay > 0) && <Menu />}
             <Outlet />
         </div>
     )
 }
 
-export default connect(
-    ({ app }) => $_.pick(app, ['floatMenu', 'bfCache']),
-    ({ app }) => ({ actions: $_.pick(app, ['setFloatMenu']) })
-)(MobileLayout)
+export default MobileLayout

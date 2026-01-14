@@ -4,7 +4,6 @@
  + ------------------------------------------------------------------ 
  */
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
 import { useLocation } from "react-router-dom";
 import technologyBanner from "@/assets/technology_banner1.png";
 import technologyMobileBanner from "@/assets/technology_mobileBanner1.png";
@@ -174,11 +173,4 @@ function Technology(props) {
     );
 }
 
-export default connect(
-    (state) => {
-        return {};
-    },
-    (dispatch) => ({
-        actions: {}
-    })
-)(Technology);
+export default Technology;

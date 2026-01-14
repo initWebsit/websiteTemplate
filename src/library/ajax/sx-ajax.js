@@ -35,10 +35,10 @@ export default class SXAjax {
 
     setDefaultOption(instance) {
         instance.defaults.timeout = 10000
-        instance.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded;charset=UTF-8"
-        instance.defaults.headers.put["Content-Type"] = "application/x-www-form-urlencoded;charset=UTF-8"
-        // instance.defaults.headers.post['Content-Type'] = 'application/json';
-        // instance.defaults.headers.put['Content-Type'] = 'application/json';
+        // instance.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded;charset=UTF-8"
+        // instance.defaults.headers.put["Content-Type"] = "application/x-www-form-urlencoded;charset=UTF-8"
+        instance.defaults.headers.post['Content-Type'] = 'application/json';
+        instance.defaults.headers.put['Content-Type'] = 'application/json';
         instance.defaults.baseURL = "/"
         instance.defaults.withCredentials = true // 跨域携带cookie
     }
@@ -124,8 +124,27 @@ export default class SXAjax {
         const ct = contentType || defaultsContentType
 
         const isFormType = ct.indexOf("application/x-www-form-urlencoded") > -1
+        const isMultipartFormData = ct.indexOf("multipart/form-data") > -1
 
-        if (isFormType) {
+        // FormData 实例必须使用 multipart/form-data，不应该被 stringify
+        // 即使 FormData 里只有文本字段，也应该使用 multipart/form-data
+        const isFormData = data instanceof FormData
+
+        // 检查普通对象中是否包含文件对象（File、Blob）
+        // 注意：FormData 已经在上面单独处理了
+        const hasFileInObject = (obj) => {
+            if (!obj || typeof obj !== 'object') return false
+            if (obj instanceof File || obj instanceof Blob) return true
+            if (Array.isArray(obj)) {
+                return obj.some(item => hasFileInObject(item))
+            }
+            return Object.values(obj).some(value => hasFileInObject(value))
+        }
+
+        // 如果是 form-urlencoded 类型，且不包含文件，则进行序列化
+        // FormData 实例不应该被 stringify（必须使用 multipart/form-data）
+        // 普通对象中包含 File/Blob 也不应该被 stringify
+        if (isFormType && !isMultipartFormData && !isFormData && !hasFileInObject(data)) {
             data = stringify(data)
         }
 

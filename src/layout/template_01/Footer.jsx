@@ -8,7 +8,7 @@ import logoImg from '@/assets/header_logo.png'
 // import { Popover } from '@/library/ui';
 import { TriangleSvg } from '@/library/icons';
 // import { langDict } from '@/commons/I18N';
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./Footer.less";
 
@@ -59,8 +59,10 @@ const PhotoSvg = (props) => {
 	)
 }
 
-function DFooter(props) {
+function DFooter() {
 	const history = useNavigate();
+	const lang = useSelector(state => state.app.lang);
+	const pageCfg = useSelector(state => state.app.pageCfg);
 	const handleChangeLang = (opts) => {
 		let _lang = opts.value;
 		if ($_.isArray(_lang)) _lang = _lang[0];
@@ -165,9 +167,4 @@ function DFooter(props) {
     );
 }
 
-export default connect(
-	({ app }) => ($_.pick(app, ['lang', 'pageCfg'])),
-	({ app }) => ({
-		actions: {}
-	})
-)(DFooter)
+export default DFooter

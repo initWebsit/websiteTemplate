@@ -1,27 +1,29 @@
 import React from 'react';
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Footer from './footer';
+import { jumpLoginPage } from '@/store/app';
 import './Content.less';
 
 
-function MobileContent(props) {
-    if ($_.isEmpty(props.pageCfg)) return null;
-    if (props.pageCfg.auth && $_.isEmpty(props.userInfo)) {
-        props.actions.jumpLoginPage();
+function MobileContent({ children }) {
+    const dispatch = useDispatch();
+    const userInfo = useSelector(state => state.app.userInfo);
+    const pageCfg = useSelector(state => state.app.pageCfg);
+
+    if ($_.isEmpty(pageCfg)) return null;
+    if (pageCfg.auth && $_.isEmpty(userInfo)) {
+        dispatch(jumpLoginPage());
         return null;
     }
 
     return (
         <div className="layout-m-content" style={{ height: 'calc(100% - 64px)' }}>
-            {props.children}
+            {children}
             {
-                props.pageCfg.footerStatusD === 1 && <Footer />
+                pageCfg.footerStatusD === 1 && <Footer />
             }
         </div>
     )
 }
 
-export default connect(
-    ({ app }) => ($_.pick(app, ['userInfo', 'pageCfg'])),
-    ({ app }) => ({ actions: $_.pick(app, ['jumpLoginPage']) })
-)(MobileContent)
+export default MobileContent
