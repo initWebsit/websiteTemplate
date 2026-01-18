@@ -1,0 +1,37 @@
+{
+  "extends": ["taro/react"],
+  "plugins": ["simple-import-sort"],
+  "globals": {
+    "$_": "readonly",
+    "history": "readonly",
+    "$q": "readonly",
+    "I18N": "readonly"
+  },
+  "rules": {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-useless-constructor": "off",
+    "no-unused-vars": ["error", { "varsIgnorePattern": "^React$" }],
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          // React 相关 (按字母排序)
+          ["^react$", "^react-dom$", "^react", "^@?\\w"],
+          // Taro 相关 (按字母排序)
+          ["^@tarojs"],
+          // 其他外部依赖 (按字母排序)
+          ["^(@|components)(/.*|$)"],
+          // 内部模块 @/开头 (按字母排序)
+          ["^@/"],
+          // 相对路径导入 (按字母排序)
+          ["^\\.\\.(?!/?$)", "^\\.\\./?$", "^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+          // 样式文件 (按字母排序)
+          ["^.+\\.?(css|less|scss)$"]
+        ]
+      }
+    ],
+    "simple-import-sort/exports": "error"
+  }
+}

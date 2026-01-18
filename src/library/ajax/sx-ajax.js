@@ -1,238 +1,281 @@
-import axios from "axios"
-import { stringify } from "qs"
+import axios from 'axios'
+import { stringify } from 'qs'
+
+import { clearAllCookie } from '@/commons/cookie'
+import handleError from '@/commons/handleError'
+import store from '@/store'
+import { setUserInfo } from '@/store/app'
 
 export default class SXAjax {
-    /**
-     * 构造函数传入的是自定义的一些配置，
-     * axios相关的全局配置使用sxAjax实例进行配置：
-     * sxAjax.defaults.xxx sxAjax.mockDefaults.xxx进行配置
-     *
-     * @param onShowErrorTip 如何显示错误提示
-     * @param onShowSuccessTip 如何显示成功提示
-     * @param isMock 区分哪些请求需要mock，比如：url以约定'/mock'开头的请求，使用mock等方式。
-     * @param reject 出错是否进行reject 默认true
-     */
-    constructor(
-        {
-            onShowSuccessTip = (/* response, successTip  */) => true,
-            onShowErrorTip = (/* err, errorTip */) => true,
-            isMock = (/* url, data, method, options */) => false,
-            reject = true
-        } = {}
-    ) {
-        this.instance = axios.create()
-        this.mockInstance = axios.create()
-        this.setDefaultOption(this.instance)
-        this.setDefaultOption(this.mockInstance)
-        this.defaults = this.instance.defaults
-        this.mockDefaults = this.mockInstance.defaults
+  /**
+   * 构造函数传入的是自定义的一些配置，
+   * axios相关的全局配置使用sxAjax实例进行配置：
+   * sxAjax.defaults.xxx sxAjax.mockDefaults.xxx进行配置
+   *
+   * @param onShowErrorTip 如何显示错误提示
+   * @param onShowSuccessTip 如何显示成功提示
+   * @param isMock 区分哪些请求需要mock，比如：url以约定'/mock'开头的请求，使用mock等方式。
+   * @param reject 出错是否进行reject 默认true
+   */
+  constructor({
+    onShowSuccessTip = (/* response, successTip  */) => true,
+    onShowErrorTip = (/* err, errorTip */) => true,
+    isMock = (/* url, data, method, options */) => false,
+    reject = true,
+  } = {}) {
+    this.instance = axios.create()
+    this.mockInstance = axios.create()
+    this.setDefaultOption(this.instance)
+    this.setDefaultOption(this.mockInstance)
+    this.defaults = this.instance.defaults
+    this.mockDefaults = this.mockInstance.defaults
 
-        this.onShowSuccessTip = onShowSuccessTip
-        this.onShowErrorTip = onShowErrorTip
-        this.isMock = isMock
-        this.reject = reject
+    this.onShowSuccessTip = onShowSuccessTip
+    this.onShowErrorTip = onShowErrorTip
+    this.isMock = isMock
+    this.reject = reject
+  }
+
+  setDefaultOption(instance) {
+    instance.defaults.timeout = 10000
+    // instance.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded;charset=UTF-8"
+    // instance.defaults.headers.put["Content-Type"] = "application/x-www-form-urlencoded;charset=UTF-8"
+    instance.defaults.headers.post['Content-Type'] = 'application/json'
+    instance.defaults.headers.put['Content-Type'] = 'application/json'
+    instance.defaults.baseURL = '/'
+    instance.defaults.withCredentials = true // 跨域携带cookie
+  }
+
+  /**
+   *
+   * @param url
+   * @param d
+   * @param method
+   * @param options 配置数据，最常用是【successTip】属性，也可以吧url data method覆盖掉；
+   * @returns {Promise}
+   */
+  ajax(url, d = {}, method = 'get', options = {}) {
+    // 有 null的情况
+    let data = d || {}
+    options = options || {}
+
+    const useReject = 'reject' in options ? options.reject : this.reject
+
+    let {
+      successTip = false, // 默认false，不展示
+      errorTip, //  = method === 'get' ? '获取数据失败！' : '操作失败！', // 默认失败提示
+      closeErrorTip,
+      noEmpty = false, // 过滤掉 值为 null、''、undefined三种参数，不传递给后端
+      originResponse = false,
+    } = options
+
+    // 删除 参数对象中为 null '' undefined 的数据，不发送给后端
+    if (noEmpty === true && typeof data === 'object' && !Array.isArray(data)) {
+      const noEmptyData = {}
+
+      Object.keys(data).forEach(key => {
+        const value = data[key]
+        if (value !== null && value !== '' && value !== void 0) {
+          noEmptyData[key] = value
+        }
+      })
+
+      data = noEmptyData
     }
 
-    setDefaultOption(instance) {
-        instance.defaults.timeout = 10000
-        // instance.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded;charset=UTF-8"
-        // instance.defaults.headers.put["Content-Type"] = "application/x-www-form-urlencoded;charset=UTF-8"
-        instance.defaults.headers.post['Content-Type'] = 'application/json';
-        instance.defaults.headers.put['Content-Type'] = 'application/json';
-        instance.defaults.baseURL = "/"
-        instance.defaults.withCredentials = true // 跨域携带cookie
+    const CancelToken = axios.CancelToken
+    let cancel
+
+    const isGet = method === 'get'
+    const isDelete = method === 'delete'
+    const isMock = this.isMock(url, data, method, options)
+
+    let instance = this.instance
+
+    /*
+     * 封装内不做处理，如果需要，通过如下方式，或者其他方法自行处理
+     * axiosInstance.interceptors.request.use(cfg => {
+     *   // Do something before request is sent
+     *   return cfg;
+     * }, error => {
+     *   // Do something with request error
+     *   return Promise.reject(error);
+     * });
+     *
+     * */
+
+    if (isMock) {
+      instance = this.mockInstance
     }
 
-    /**
+    /*
      *
-     * @param url
-     * @param d
-     * @param method
-     * @param options 配置数据，最常用是【successTip】属性，也可以吧url data method覆盖掉；
-     * @returns {Promise}
-     */
-    ajax(url, d = {}, method = "get", options = {}) {
-        // 有 null的情况
-        let data = d || {}
-        options = options || {}
+     * Content-Type application/x-www-form-urlencoded 存在问题
+     * 参见：https://github.com/axios/axios/issues/362
+     *
+     * */
+    const defaultsContentType =
+      instance.defaults.headers[method]['Content-Type'] ||
+      instance.defaults.headers[method]['content-type'] ||
+      instance.defaults.headers[method]['contentType'] ||
+      ''
 
-        const useReject = ("reject" in options) ? options.reject : this.reject
+    const contentType =
+      (options.headers && options.headers['Content-Type']) ||
+      (options.headers && options.headers['content-type']) ||
+      (options.headers && options.headers['contentType']) ||
+      ''
 
-        let {
-            successTip = false, // 默认false，不展示
-            errorTip, //  = method === 'get' ? '获取数据失败！' : '操作失败！', // 默认失败提示
-            closeErrorTip,
-            noEmpty = false, // 过滤掉 值为 null、''、undefined三种参数，不传递给后端
-            originResponse = false
-        } = options
+    const ct = contentType || defaultsContentType
 
-        // 删除 参数对象中为 null '' undefined 的数据，不发送给后端
-        if (noEmpty === true && typeof data === "object" && !Array.isArray(data)) {
-            const noEmptyData = {}
+    const isFormType = ct.indexOf('application/x-www-form-urlencoded') > -1
+    const isMultipartFormData = ct.indexOf('multipart/form-data') > -1
 
-            Object.keys(data).forEach(key => {
-                const value = data[key]
-                if (value !== null && value !== "" && value !== void 0) {
-                    noEmptyData[key] = value
-                }
-            })
+    // FormData 实例必须使用 multipart/form-data，不应该被 stringify
+    // 即使 FormData 里只有文本字段，也应该使用 multipart/form-data
+    const isFormData = data instanceof FormData
 
-            data = noEmptyData
-        }
+    // 检查普通对象中是否包含文件对象（File、Blob）
+    // 注意：FormData 已经在上面单独处理了
+    const hasFileInObject = obj => {
+      if (!obj || typeof obj !== 'object') return false
+      if (obj instanceof File || obj instanceof Blob) return true
+      if (Array.isArray(obj)) {
+        return obj.some(item => hasFileInObject(item))
+      }
+      return Object.values(obj).some(value => hasFileInObject(value))
+    }
 
-        const CancelToken = axios.CancelToken
-        let cancel
+    // 如果是 form-urlencoded 类型，且不包含文件，则进行序列化
+    // FormData 实例不应该被 stringify（必须使用 multipart/form-data）
+    // 普通对象中包含 File/Blob 也不应该被 stringify
+    if (isFormType && !isMultipartFormData && !isFormData && !hasFileInObject(data)) {
+      data = stringify(data)
+    }
 
-        const isGet = method === "get"
-        const isDelete = method === "delete"
-        const isMock = this.isMock(url, data, method, options)
+    let params = {}
+    if (isGet || isDelete) {
+      params = data // params 是get或delete请求拼接到url上的
+      data = {} // data 是put、post 等请求发送的数据
+    }
 
-        let instance = this.instance
-
-        /*
-         * 封装内不做处理，如果需要，通过如下方式，或者其他方法自行处理
-         * axiosInstance.interceptors.request.use(cfg => {
-         *   // Do something before request is sent
-         *   return cfg;
-         * }, error => {
-         *   // Do something with request error
-         *   return Promise.reject(error);
-         * });
-         *
-         * */
-
-        if (isMock) {
-            instance = this.mockInstance
-        }
-
-        /*
-        *
-        * Content-Type application/x-www-form-urlencoded 存在问题
-        * 参见：https://github.com/axios/axios/issues/362
-        *
-        * */
-        const defaultsContentType = instance.defaults.headers[method]["Content-Type"]
-            || instance.defaults.headers[method]["content-type"]
-            || instance.defaults.headers[method]["contentType"]
-            || ""
-
-        const contentType = (options.headers && options.headers["Content-Type"])
-            || (options.headers && options.headers["content-type"])
-            || (options.headers && options.headers["contentType"])
-            || ""
-
-        const ct = contentType || defaultsContentType
-
-        const isFormType = ct.indexOf("application/x-www-form-urlencoded") > -1
-        const isMultipartFormData = ct.indexOf("multipart/form-data") > -1
-
-        // FormData 实例必须使用 multipart/form-data，不应该被 stringify
-        // 即使 FormData 里只有文本字段，也应该使用 multipart/form-data
-        const isFormData = data instanceof FormData
-
-        // 检查普通对象中是否包含文件对象（File、Blob）
-        // 注意：FormData 已经在上面单独处理了
-        const hasFileInObject = (obj) => {
-            if (!obj || typeof obj !== 'object') return false
-            if (obj instanceof File || obj instanceof Blob) return true
-            if (Array.isArray(obj)) {
-                return obj.some(item => hasFileInObject(item))
+    const ajaxPromise = new Promise((resolve, reject) => {
+      instance({
+        method,
+        url,
+        data,
+        params,
+        cancelToken: new CancelToken(c => (cancel = c)),
+        ...options,
+      })
+        .then(response => {
+          if (response.status !== 200) {
+            const err = new Error('请求失败')
+            err.response = response
+            reject(response)
+            return Promise.reject(err)
+          }
+          if (response.data.code === 401) {
+            clearAllCookie()
+            store.dispatch(setUserInfo({}))
+            window.location.replace('/login')
+            const err = new Error('未授权')
+            err.response = response
+            reject(response)
+            return Promise.reject(err)
+          }
+          // 检查业务错误码，如果不是200则认为失败
+          if (response.data && response.data.code !== undefined && response.data.code !== 200) {
+            const err = new Error(response.data.message || '请求失败')
+            err.response = {
+              ...response,
+              data: response.data,
+              status: response.status || response.data.code,
             }
-            return Object.values(obj).some(value => hasFileInObject(value))
-        }
-
-        // 如果是 form-urlencoded 类型，且不包含文件，则进行序列化
-        // FormData 实例不应该被 stringify（必须使用 multipart/form-data）
-        // 普通对象中包含 File/Blob 也不应该被 stringify
-        if (isFormType && !isMultipartFormData && !isFormData && !hasFileInObject(data)) {
-            data = stringify(data)
-        }
-
-        let params = {}
-        if (isGet || isDelete) {
-            params = data // params 是get或delete请求拼接到url上的
-            data = {} // data 是put、post 等请求发送的数据
-        }
-
-        const ajaxPromise = new Promise((resolve, reject) => {
-            instance({
-                method,
-                url,
-                data,
-                params,
-                cancelToken: new CancelToken(c => cancel = c),
-                ...options
-            }).then(response => {
-                this.onShowSuccessTip(response, successTip)
-                resolve(originResponse ? response : response?.data)
-            }).catch(err => {
-                if (closeErrorTip) return reject(err)
-                if (err && err.message && err.message.canceled) return // 如果是用户主动cancel，不做任何处理，不会触发任何函数
-                this.onShowErrorTip(err, errorTip)
-                useReject ? reject(err) : resolve({ $type: "unRejectError", $error: err })
-            })
+            if (useReject) {
+              return Promise.reject(err)
+            } else {
+              resolve({ $type: 'unRejectError', $error: err })
+              return
+            }
+          }
+          this.onShowSuccessTip(response, successTip)
+          resolve(originResponse ? response : response?.data)
         })
-        ajaxPromise.cancel = function () {
-            cancel({
-                canceled: true
-            })
-        }
-        return ajaxPromise
+        .catch(err => {
+          if (closeErrorTip) return reject(err)
+          if (err && err.message && err.message.canceled) return // 如果是用户主动cancel，不做任何处理，不会触发任何函数
+          // 如果错误已经在 then 中处理过（业务错误），则跳过重复提示
+          if (err._errorHandled) {
+            useReject ? reject(err) : resolve({ $type: 'unRejectError', $error: err })
+            return
+          }
+          this.onShowErrorTip(err, errorTip)
+          // 通用错误提示拦截，使用Toast.error显示
+          handleError({ error: err, errorTip })
+          useReject ? reject(err) : resolve({ $type: 'unRejectError', $error: err })
+        })
+    })
+    ajaxPromise.cancel = function () {
+      cancel({
+        canceled: true,
+      })
     }
+    return ajaxPromise
+  }
 
-    /**
-     * 发送一个get请求，一般用于查询操作
-     * @param {string} url 请求路径
-     * @param {object} [params] 传输给后端的数据，正常请求会转换成query string 拼接到url后面
-     * @param {object} [options] axios 配置参数
-     * @returns {Promise}
-     */
-    get(url, params, options) {
-        return this.ajax(url, params, "get", options)
-    }
+  /**
+   * 发送一个get请求，一般用于查询操作
+   * @param {string} url 请求路径
+   * @param {object} [params] 传输给后端的数据，正常请求会转换成query string 拼接到url后面
+   * @param {object} [options] axios 配置参数
+   * @returns {Promise}
+   */
+  get(url, params, options) {
+    return this.ajax(url, params, 'get', options)
+  }
 
-    /**
-     * 发送一个post请求，一般用于添加操作
-     * @param {string} url 请求路径
-     * @param {object} [data] 传输给后端的数据
-     * @param {object} [options] axios 配置参数
-     * @returns {Promise}
-     */
-    post(url, data, options) {
-        return this.ajax(url, data, "post", options)
-    }
+  /**
+   * 发送一个post请求，一般用于添加操作
+   * @param {string} url 请求路径
+   * @param {object} [data] 传输给后端的数据
+   * @param {object} [options] axios 配置参数
+   * @returns {Promise}
+   */
+  post(url, data, options) {
+    return this.ajax(url, data, 'post', options)
+  }
 
+  /**
+   * 发送一个put请求，一般用于更新操作
+   * @param {string} url 请求路径
+   * @param {object} [data] 传输给后端的数据
+   * @param {object} [options] axios 配置参数
+   * @returns {Promise}
+   */
+  put(url, data, options) {
+    return this.ajax(url, data, 'put', options)
+  }
 
-    /**
-     * 发送一个put请求，一般用于更新操作
-     * @param {string} url 请求路径
-     * @param {object} [data] 传输给后端的数据
-     * @param {object} [options] axios 配置参数
-     * @returns {Promise}
-     */
-    put(url, data, options) {
-        return this.ajax(url, data, "put", options)
-    }
+  /**
+   * 发送一个patch请求，一般用于更新部分数据
+   * @param {string} url 请求路径
+   * @param {object} [data] 传输给后端的数据
+   * @param {object} [options] axios 配置参数
+   * @returns {Promise}
+   */
+  patch(url, data, options) {
+    return this.ajax(url, data, 'patch', options)
+  }
 
-    /**
-     * 发送一个patch请求，一般用于更新部分数据
-     * @param {string} url 请求路径
-     * @param {object} [data] 传输给后端的数据
-     * @param {object} [options] axios 配置参数
-     * @returns {Promise}
-     */
-    patch(url, data, options) {
-        return this.ajax(url, data, "patch", options)
-    }
-
-    /**
-     * 发送一个delete请求，一般用于删除数据，params会被忽略（http协议中定义的）
-     * @param {string} url 请求路径
-     * @param {object} [data] 传输给后端的数据
-     * @param {object} [options] axios 配置参数
-     * @returns {Promise}
-     */
-    del(url, data, options) {
-        return this.ajax(url, data, "delete", options)
-    }
+  /**
+   * 发送一个delete请求，一般用于删除数据，params会被忽略（http协议中定义的）
+   * @param {string} url 请求路径
+   * @param {object} [data] 传输给后端的数据
+   * @param {object} [options] axios 配置参数
+   * @returns {Promise}
+   */
+  del(url, data, options) {
+    return this.ajax(url, data, 'delete', options)
+  }
 }
